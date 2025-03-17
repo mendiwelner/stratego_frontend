@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es5",                                 // מטרה להפיק קוד שמתואם ל-ES5
+    "module": "commonjs",                            // שימוש במערכת המודולים CommonJS
+    "strict": true,                                  // הפעלת בדיקות קפדניות על כל הקוד
+    "esModuleInterop": true,                         // מאפשר המרת מודולים ES ל-CommonJS
+    "skipLibCheck": true,                            // דילוג על בדיקות סוגים בקבצי הגדרות חיצוניים
+    "skipDefaultLibCheck": true,                     // דילוג על בדיקות הספרייה הבסיסית
+    "forceConsistentCasingInFileNames": true,        // שמירה על עקביות במקרים (case-sensitivity) בשמות קבצים
+    "noImplicitAny": true,                           // מניעת טיפוס כללי "any" משתנים
+    "noEmit": true,                                  // לא לייצא קבצים מוגדרים - רק הידור
+    "allowJs": true,                                 // מאפשר קבצי JavaScript בקוד TypeScript
+    "outDir": "./dist",                              // תיקייה בה יישמרו קבצי הפלט המהודרים
+    "sourceMap": true,                               // יצירת מפות מקור לצורך ניפוי שגיאות
+    "jsx": "react",                                  // קביעת שהקובץ הוא JSX עבור React
+    "resolveJsonModule": true,                       // מאפשר ייבוא קבצי JSON
+    "allowImportingTsExtensions": true               // אפשרות לייבוא קבצים עם סיומות TypeScript
+  },
+  "include": [
+    "src/**/*"                                      // הגדרת תיקיית המקור בה נמצאים קבצי TypeScript
+  ],
+  "exclude": [
+    "node_modules"                                  // אי-הכללה של תיקיית node_modules מההידור
+  ]
+}
