@@ -16,6 +16,10 @@
     cursor: not-allowed; 
 }
 
+.cell.hover-marked {
+    background-color: rgb(244, 240, 187) !important; 
+}
+
 .cell.marked {
     background-color: yellow !important; 
 }

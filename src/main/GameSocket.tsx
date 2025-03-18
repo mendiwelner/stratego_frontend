@@ -7,32 +7,25 @@ export function useGameSocket() {
         Array(10).fill(null).map(() => Array(10).fill({ number_of_player: 0, value: "" }))
     );
     const [markedCell, setMarkedCell] = useState<{ row: number; column: number } | null>(null);
+    const [markedCellHovered, setMarkedCellHovered] = useState<{ row: number; column: number } | null>(null);
     const [possibleMoves, setPossibleMoves] = useState<Array<{ row: number; column: number }>>([]);
     const socketRef = useRef<WebSocket | null>(null);
 
-    const updateBoardManually = () => {
-        setBoard(prevBoard => {
-            const newBoard = [...prevBoard];
-            newBoard[0][0] = { number_of_player: 1, value: "X" };
-            return newBoard;
-        });
-    };
-
     const connectToGame = () => {
-        handleConnectToGame(socketRef, setBoard, setMarkedCell, setPossibleMoves, disconnectFromGame);
+        handleConnectToGame(socketRef, setBoard, setMarkedCell, setMarkedCellHovered, setPossibleMoves, disconnectFromGame);
     };
 
     const disconnectFromGame = () => {
-        handleDisconnectFromGame(socketRef, setBoard, setMarkedCell, setPossibleMoves);
+        handleDisconnectFromGame(socketRef, setBoard, setMarkedCell, setMarkedCellHovered, setPossibleMoves);
     };
 
     return {
         board,
         markedCell,
+        markedCellHovered, 
         possibleMoves,
         connectToGame,
         disconnectFromGame,
-        updateBoardManually,
         socketRef
     };
 }

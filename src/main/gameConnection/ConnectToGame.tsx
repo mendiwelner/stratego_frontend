@@ -1,7 +1,9 @@
 import { BoardData } from "../interfaces/BoardData.tsx";
 import { handleMakeMove } from "../handleInputOperations/HandleMakeMove.tsx";
 import { handleMarkCell } from "../handleInputOperations/HandleMarkCell.tsx";
+import { handleMarkCellHover } from "../handleInputOperations/HandleMarkCellHover.tsx";
 import { handleErrorCellPushed } from "../handleInputOperations/HandleErrorCellPushed.tsx";
+import { handleErrorCellHovered } from "../handleInputOperations/HandleErrorCellHovered.tsx";
 import { handleMessage } from "../handleInputOperations/HandleMessage.tsx";
 import { handleBoardUpdate } from "../handleInputOperations/HandleBoardUpdate.tsx";
 
@@ -9,6 +11,7 @@ export function handleConnectToGame(
     socketRef: React.MutableRefObject<WebSocket | null>,
     setBoard: React.Dispatch<React.SetStateAction<Array<Array<{ number_of_player: number; value: string }>>>>,
     setMarkedCell: React.Dispatch<React.SetStateAction<{ row: number; column: number } | null>>,
+    setMarkedCellHovered: React.Dispatch<React.SetStateAction<{ row: number; column: number } | null>>,
     setPossibleMoves: React.Dispatch<React.SetStateAction<Array<{ row: number; column: number }>>>,
     disconnectFromGame: () => void
 ) {
@@ -53,8 +56,16 @@ export function handleConnectToGame(
                     handleErrorCellPushed(data, setMarkedCell, setPossibleMoves);
                     break;
 
+                case "error_cell_hovered":
+                    handleErrorCellHovered(data, setMarkedCellHovered);
+                    break;
+
                 case "mark_cell":
                     handleMarkCell(data, setMarkedCell, setPossibleMoves);
+                    break;
+
+                case "mark_cell_hover":
+                    handleMarkCellHover(data, setMarkedCellHovered);
                     break;
 
                 case "make_move":
@@ -79,6 +90,7 @@ export function handleConnectToGame(
         setBoard(Array(10).fill(null).map(() => Array(10).fill({ number_of_player: 0, value: "" })));
         setMarkedCell(null);
         setPossibleMoves([]);
+        console.log("connection closed!");
     };
 
     socketRef.current.onerror = () => {

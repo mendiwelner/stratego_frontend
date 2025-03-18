@@ -9,11 +9,12 @@ interface CellProps {
     isForbidden: boolean;
     markedCell?: { row: number; column: number } | null;
     isMarked: boolean;
+    isHoverMarked: boolean;
     isPossibleMove: boolean;
     socketRef: React.RefObject<WebSocket | null>;
 }
 
-const Cell: React.FC<CellProps> = ({ row, column, cell, isForbidden, markedCell, isMarked, isPossibleMove, socketRef }) => {
+const Cell: React.FC<CellProps> = ({ row, column, cell, isForbidden, markedCell, isMarked, isHoverMarked, isPossibleMove, socketRef }) => {
     const handleCellClick = () => {
         if (!socketRef.current || socketRef.current.readyState !== WebSocket.OPEN) {
             console.log('WebSocket is not connected.');
@@ -32,7 +33,6 @@ const Cell: React.FC<CellProps> = ({ row, column, cell, isForbidden, markedCell,
                 }
             };
             socketRef.current.send(JSON.stringify(move));
-            console.log('Move sent:', move);
         } else {
             const checkMove = {
                 action: "check_cell_move",
@@ -42,13 +42,28 @@ const Cell: React.FC<CellProps> = ({ row, column, cell, isForbidden, markedCell,
         }
     };
 
+    const handleHover = () => {
+        if (!socketRef.current || socketRef.current.readyState !== WebSocket.OPEN) {
+            console.log('WebSocket is not connected.');
+            return;
+        }
+        
+        const checkHover = {
+            action: "check_cell_hover",
+            cell: { row: row, column: column }
+        };
+        socketRef.current.send(JSON.stringify(checkHover));
+    };
+
     return (
         <div
             className={`cell 
                 ${isForbidden ? 'forbidden' : ''} 
                 ${isMarked ? 'marked' : ''} 
+                ${isHoverMarked ? 'hover-marked' : ''} 
                 ${isPossibleMove ? 'possible-move' : ''}`} 
             onClick={handleCellClick}
+            onMouseEnter={handleHover}  
         >
             {cell.number_of_player ? (
                 <PlayerCircle numberOfPlayer={cell.number_of_player} value={cell.value} />

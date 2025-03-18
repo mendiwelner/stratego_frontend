@@ -5,11 +5,12 @@ import Cell from './Cell.tsx';
 interface BoardProps {
   board: { number_of_player: number; value: string }[][];
   markedCell?: { row: number; column: number } | null;
+  markedCellHovered?: { row: number; column: number } | null;
   possibleMoves?: { row: number; column: number }[] | null;
   socketRef: React.RefObject<WebSocket | null>;
 }
 
-const Board: React.FC<BoardProps> = ({ board, markedCell, possibleMoves = [], socketRef }) => {
+const Board: React.FC<BoardProps> = ({ board, markedCell, markedCellHovered, possibleMoves = [], socketRef }) => {
 
   const forbiddenCells = [
     { row: 4, column: 2 }, { row: 4, column: 3 },
@@ -39,6 +40,7 @@ const Board: React.FC<BoardProps> = ({ board, markedCell, possibleMoves = [], so
               cell={cell}
               isForbidden={isCellForbidden(rowIndex, colIndex)}
               isMarked={markedCell?.row === rowIndex && markedCell?.column === colIndex}
+              isHoverMarked={markedCellHovered?.row === rowIndex && markedCellHovered?.column === colIndex}
               isPossibleMove={isPossibleMove(rowIndex, colIndex)}
               markedCell={markedCell}
               socketRef={socketRef}
