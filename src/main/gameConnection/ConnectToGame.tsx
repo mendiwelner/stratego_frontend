@@ -76,8 +76,9 @@ export function handleConnectToGame(
 
     socketRef.current.onclose = () => {
         clearTimeout(connectionTimeout);
-        console.log("Disconnected from game.");
-        socketRef.current = null;
+        setBoard(Array(10).fill(null).map(() => Array(10).fill({ number_of_player: 0, value: "" })));
+        setMarkedCell(null);
+        setPossibleMoves([]);
     };
 
     socketRef.current.onerror = () => {

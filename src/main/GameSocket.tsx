@@ -23,18 +23,8 @@ export function useGameSocket() {
     };
 
     const disconnectFromGame = () => {
-        console.log(board);
         handleDisconnectFromGame(socketRef, setBoard, setMarkedCell, setPossibleMoves);
     };
-
-    const clearLastIndex = () => {
-        setBoard(prevBoard => {
-            const newBoard = [...prevBoard];
-            newBoard[9] = newBoard[9].map(() => ({ number_of_player: 0, value: "" }));
-            return newBoard;
-        });
-    };
-    
 
     return {
         board,

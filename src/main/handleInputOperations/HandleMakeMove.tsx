@@ -54,7 +54,7 @@ export function handleMakeMove(
                         })
                     )
                 );
-            }, 500);
+            }, 1000);
         } else {
             setBoard(prevBoard =>
                 prevBoard.map((row, rowIndex) =>
