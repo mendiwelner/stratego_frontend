@@ -4,16 +4,28 @@ import Board from '../elements/Board.tsx';
 import '../style/Game.css';
 import ConnectButton from './buttons/ConnectButton';
 import DisconnectButton from './buttons/DisconnectButton';
+import Graveyard from '../elements/Graveyard.tsx';
 
 export default function Game() {
-    const { board, markedCell, markedCellHovered, possibleMoves, connectToGame, disconnectFromGame, socketRef } = useGameSocket(); 
+    const { board, markedCell, markedCellHovered, possibleMoves, graveyard, connectToGame, disconnectFromGame, socketRef } = useGameSocket(); 
 
     return (
         <div className="game-container">
             <h1>Stratego Game</h1>
-            <ConnectButton connectToGame={connectToGame} />
-            <DisconnectButton disconnectFromGame={disconnectFromGame} />
-            <Board board={board} markedCell={markedCell} markedCellHovered={markedCellHovered} possibleMoves={possibleMoves} socketRef={socketRef} />
+            <div className="game-controls">
+                <ConnectButton connectToGame={connectToGame} />
+                <DisconnectButton disconnectFromGame={disconnectFromGame} />
+            </div>
+            <div className="game-layout">
+                <Board 
+                    board={board} 
+                    markedCell={markedCell} 
+                    markedCellHovered={markedCellHovered} 
+                    possibleMoves={possibleMoves} 
+                    socketRef={socketRef} 
+                />
+                <Graveyard pieces={graveyard} />
+            </div>
         </div>
     );
 }

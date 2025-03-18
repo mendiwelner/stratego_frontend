@@ -1,12 +1,14 @@
 import React from 'react';
 import '../style/Board.css';
-import Cell from './Cell.tsx';
+import  Cell from "./Cell.tsx"
+import { CellInterface } from '../interfaces/Cell.tsx';
+import { Piece } from '../interfaces/Piece.tsx';
 
 interface BoardProps {
-  board: { number_of_player: number; value: string }[][];
-  markedCell?: { row: number; column: number } | null;
-  markedCellHovered?: { row: number; column: number } | null;
-  possibleMoves?: { row: number; column: number }[] | null;
+  board: Piece[][];
+  markedCell?: CellInterface | null;
+  markedCellHovered?: CellInterface | null;
+  possibleMoves?: CellInterface[] | null;
   socketRef: React.RefObject<WebSocket | null>;
 }
 

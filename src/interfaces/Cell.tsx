@@ -1,0 +1,1 @@
+export interface CellInterface { row: number; column: number };

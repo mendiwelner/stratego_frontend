@@ -1,0 +1,1 @@
+export interface Piece { number_of_player: number; value: string };

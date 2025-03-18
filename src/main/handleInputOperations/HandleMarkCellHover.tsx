@@ -1,5 +1,7 @@
+import { InputData } from "../../interfaces/InputData.tsx"
+
 export function handleMarkCellHover(
-    data: { cell?: { row: number; column: number }; possible_moves?: { row: number; column: number }[] },
+    data: InputData,
     setMarkedCellHover: React.Dispatch<React.SetStateAction<{ row: number; column: number } | null>>,
     ) {
     if (data.cell) {

@@ -1,16 +1,7 @@
+import { InputData } from "../../interfaces/InputData.tsx"
+
 export function handleMakeMove(
-    data: {
-        move?: {
-            move_type?: string;
-            from_cell: { row: number; column: number };
-            to_cell: { row: number; column: number };
-            in_from_cell?: { number_of_player: number; value: string } | string;
-            in_to_cell?: { number_of_player: number; value: string } | string;
-            in_from_cell_show?: { number_of_player: number; value: string } | null;
-            in_to_cell_show?: { number_of_player: number; value: string } | null;
-            attacker_position?: { row: number; column: number } | null;
-        };
-    },
+    data: InputData,
     setBoard: React.Dispatch<React.SetStateAction<Array<Array<{ number_of_player: number; value: string }>>>>,
     setMarkedCell: React.Dispatch<React.SetStateAction<{ row: number; column: number } | null>>,
     setPossibleMoves: React.Dispatch<React.SetStateAction<Array<{ row: number; column: number }>>>
@@ -28,12 +19,12 @@ export function handleMakeMove(
                                 ? in_from_cell_show
                                 : { number_of_player: 0, value: "" };
                         }
-                        if (attacker_position && rowIndex === from_cell.row && colIndex === from_cell.column) {
+                        if (attacker_position && rowIndex === from_cell?.row && colIndex === from_cell.column) {
                             return typeof in_from_cell === "object"
                                 ? in_from_cell
                                 : { number_of_player: 0, value: "" };
                         }
-                        if (rowIndex === to_cell.row && colIndex === to_cell.column) {
+                        if (rowIndex === to_cell?.row && colIndex === to_cell.column) {
                             return in_to_cell_show && typeof in_to_cell_show === "object"
                                 ? in_to_cell_show
                                 : { number_of_player: 0, value: "" };
@@ -52,12 +43,12 @@ export function handleMakeMove(
                                     ? in_from_cell
                                     : { number_of_player: 0, value: "" };
                             }
-                            if (!attacker_position && rowIndex === from_cell.row && colIndex === from_cell.column) {
+                            if (!attacker_position && rowIndex === from_cell?.row && colIndex === from_cell.column) {
                                 return typeof in_from_cell === "object"
                                     ? in_from_cell
                                     : { number_of_player: 0, value: "" };
                             }
-                            if (rowIndex === to_cell.row && colIndex === to_cell.column) {
+                            if (rowIndex === to_cell?.row && colIndex === to_cell.column) {
                                 return typeof in_to_cell === "object"
                                     ? in_to_cell
                                     : { number_of_player: 0, value: "" };
@@ -71,12 +62,12 @@ export function handleMakeMove(
             setBoard(prevBoard =>
                 prevBoard.map((row, rowIndex) =>
                     row.map((cell, colIndex) => {
-                        if (rowIndex === from_cell.row && colIndex === from_cell.column) {
+                        if (rowIndex === from_cell?.row && colIndex === from_cell.column) {
                             return typeof in_from_cell === "object" && attacker_position
                                 ? in_from_cell
                                 : { number_of_player: 0, value: "" };
                         }
-                        if (rowIndex === to_cell.row && colIndex === to_cell.column) {
+                        if (rowIndex === to_cell?.row && colIndex === to_cell.column) {
                             return typeof in_to_cell === "object"
                                 ? in_to_cell
                                 : { number_of_player: 0, value: "" };

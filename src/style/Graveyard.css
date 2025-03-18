@@ -1,0 +1,28 @@
+.graveyard {
+    width: 200px;
+    padding: 10px;
+    background: #222;
+    color: white;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.graveyard-pieces {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+}
+
+.piece {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.player-1 { background: red; }
+.player-2 { background: blue; }

@@ -44,7 +44,6 @@ const Cell: React.FC<CellProps> = ({ row, column, cell, isForbidden, markedCell,
 
     const handleHover = () => {
         if (!socketRef.current || socketRef.current.readyState !== WebSocket.OPEN) {
-            console.log('WebSocket is not connected.');
             return;
         }
         
