@@ -17,7 +17,7 @@ export function handleConnectToGame(
         return;
     }
 
-    const wsUrl = "ws://e276-2a00-a041-f129-eb00-6d3e-9aa3-ad55-2d66.ngrok-free.app/player_connect_game";
+    const wsUrl = "ws://127.0.0.1:8000/player_connect_game";
     socketRef.current = new WebSocket(wsUrl);
 
     const connectionTimeout = setTimeout(() => {
