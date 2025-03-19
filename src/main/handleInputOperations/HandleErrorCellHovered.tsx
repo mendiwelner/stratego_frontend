@@ -1,5 +1,7 @@
+import { CellInterface } from "../../interfaces/Cell.tsx"
+
 export function handleErrorCellHovered(
-    setMarkedCellHovered: React.Dispatch<React.SetStateAction<{ row: number; column: number } | null>>,
+    setMarkedCellHovered: React.Dispatch<React.SetStateAction<CellInterface | null>>,
 ) {
     setMarkedCellHovered(null);
 }

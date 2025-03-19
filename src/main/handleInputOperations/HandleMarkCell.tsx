@@ -1,7 +1,9 @@
+import { CellInterface } from "../../interfaces/Cell.tsx"
+
 export function handleMarkCell(
-    data: { cell?: { row: number; column: number }; possible_moves?: { row: number; column: number }[] },
-    setMarkedCell: React.Dispatch<React.SetStateAction<{ row: number; column: number } | null>>,
-    setPossibleMoves: React.Dispatch<React.SetStateAction<Array<{ row: number; column: number }>>>
+    data: { cell?: CellInterface; possible_moves?: CellInterface[] },
+    setMarkedCell: React.Dispatch<React.SetStateAction<CellInterface | null>>,
+    setPossibleMoves: React.Dispatch<React.SetStateAction<Array<CellInterface>>>
 ) {
     if (data.cell) {
         setMarkedCell((prevMarkedCell) => {

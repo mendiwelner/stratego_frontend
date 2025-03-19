@@ -1,10 +1,12 @@
 import { InputData } from "../../interfaces/InputData.tsx"
+import { Piece } from "../../interfaces/Piece.tsx"
+import { CellInterface } from "../../interfaces/Cell.tsx"
 
 export function handleMakeMove(
     data: InputData,
-    setBoard: React.Dispatch<React.SetStateAction<Array<Array<{ number_of_player: number; value: string }>>>>,
-    setMarkedCell: React.Dispatch<React.SetStateAction<{ row: number; column: number } | null>>,
-    setPossibleMoves: React.Dispatch<React.SetStateAction<Array<{ row: number; column: number }>>>
+    setBoard: React.Dispatch<React.SetStateAction<Array<Array<Piece>>>>,
+    setMarkedCell: React.Dispatch<React.SetStateAction<CellInterface | null>>,
+    setPossibleMoves: React.Dispatch<React.SetStateAction<Array<CellInterface>>>
 ) {
     if (data.move) {
         const { from_cell, to_cell, in_from_cell, in_to_cell, in_from_cell_show, in_to_cell_show, move_type, attacker_position } = data.move;
