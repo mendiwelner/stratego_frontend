@@ -1,6 +1,7 @@
 export function handleDisconnectFromGame(
     socketRef: React.MutableRefObject<WebSocket | null>,
     setBoard: Function,
+    setNumberOfPlayer: Function,
     setMarkedCell: Function,
     setMarkedCellHovered: Function,
     setPossibleMoves: Function,
@@ -14,6 +15,7 @@ export function handleDisconnectFromGame(
     setMarkedCellHovered(null);
     setPossibleMoves([]);
     setGraveyard([]);
+    setNumberOfPlayer(0);
     socketRef.current.close(1000, "User disconnected");
     socketRef.current = null;
 }

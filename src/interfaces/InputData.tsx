@@ -11,4 +11,5 @@ export interface InputData {
     move?: Move;
     piece?: { number_of_player: number; value: string };
     inputMove: Move;
+    number_of_player: number
 }

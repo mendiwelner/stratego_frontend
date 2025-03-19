@@ -1,17 +1,20 @@
 import { useState, useRef, useEffect } from "react";
 import { handleDisconnectFromGame } from "./gameConnection/DisconnectFromGame.tsx";
 import { handleConnectToGame } from "./gameConnection/ConnectToGame.tsx";
+import { Piece } from "../interfaces/Piece.tsx"
+import { CellInterface } from "../interfaces/Cell.tsx"
 
 export function useGameSocket() {
-    const [board, setBoard] = useState<Array<Array<{ number_of_player: number; value: string }>>>(Array(10).fill(null).map(() => Array(10).fill({ number_of_player: 0, value: "" })));
-    const [markedCell, setMarkedCell] = useState<{ row: number; column: number } | null>(null);
-    const [markedCellHovered, setMarkedCellHovered] = useState<{ row: number; column: number } | null>(null);
-    const [possibleMoves, setPossibleMoves] = useState<Array<{ row: number; column: number }>>([]);
-    const [graveyard, setGraveyard] = useState<Array<{ player: number; value: string }>>([]);
+    const [board, setBoard] = useState<Array<Array<Piece>>>(Array(10).fill(null).map(() => Array(10).fill({ number_of_player: 0, value: "" })));
+    const [markedCell, setMarkedCell] = useState<CellInterface | null>(null);
+    const [markedCellHovered, setMarkedCellHovered] = useState<CellInterface | null>(null);
+    const [possibleMoves, setPossibleMoves] = useState<Array<CellInterface>>([]);
+    const [graveyard, setGraveyard] = useState<Piece[]>([]);
+    const [numberOfPlayer, setNumberOfPlayer] = useState<number>(0);
     const socketRef = useRef<WebSocket | null>(null);
 
     const connectToGame = () => {
-        handleConnectToGame(socketRef, setBoard, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, disconnectFromGame);
+        handleConnectToGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, disconnectFromGame, numberOfPlayer);
     };
 
     const disconnectFromGame = () => {
@@ -21,7 +24,7 @@ export function useGameSocket() {
             socketRef.current.onerror = null;
             socketRef.current.close();
         }
-        handleDisconnectFromGame(socketRef, setBoard, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, true); 
+        handleDisconnectFromGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, true); 
         socketRef.current = null;
     };
 
@@ -33,7 +36,7 @@ export function useGameSocket() {
         };
 
         socketRef.current.onclose = () => {
-            handleDisconnectFromGame(socketRef, setBoard, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, false); 
+            handleDisconnectFromGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, false); 
             console.log("🔴 WebSocket connection closed!");
         };
 
@@ -54,10 +57,11 @@ export function useGameSocket() {
 
     return {
         board,
+        numberOfPlayer,
+        graveyard,
         markedCell,
         markedCellHovered,
         possibleMoves,
-        graveyard,
         connectToGame,
         disconnectFromGame,
         socketRef

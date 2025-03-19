@@ -7,15 +7,19 @@ import { handleErrorCellHovered } from "../handleInputOperations/HandleErrorCell
 import { handleMessage } from "../handleInputOperations/HandleMessage.tsx";
 import { handleBoardUpdate } from "../handleInputOperations/HandleBoardUpdate.tsx";
 import { handlePieceCaptured } from "../handleInputOperations/HandlePieceCaptured.tsx";
+import { Piece } from "../../interfaces/Piece.tsx";
+import { CellInterface } from "../../interfaces/Cell.tsx"
 
 export function handleConnectToGame(
     socketRef: React.MutableRefObject<WebSocket | null>,
-    setBoard: React.Dispatch<React.SetStateAction<Array<Array<{ number_of_player: number; value: string }>>>>,
-    setMarkedCell: React.Dispatch<React.SetStateAction<{ row: number; column: number } | null>>,
-    setMarkedCellHovered: React.Dispatch<React.SetStateAction<{ row: number; column: number } | null>>,
-    setPossibleMoves: React.Dispatch<React.SetStateAction<Array<{ row: number; column: number }>>>,
-    setGraveyard: React.Dispatch<React.SetStateAction<Array<{ player: number; value: string }>>>,
-    disconnectFromGame: () => void
+    setBoard: React.Dispatch<React.SetStateAction<Array<Array<Piece>>>>,
+    setNumberOfPlayer: React.Dispatch<React.SetStateAction<number>>,
+    setMarkedCell: React.Dispatch<React.SetStateAction<CellInterface | null>>,
+    setMarkedCellHovered: React.Dispatch<React.SetStateAction<CellInterface | null>>,
+    setPossibleMoves: React.Dispatch<React.SetStateAction<Array<CellInterface>>>,
+    setGraveyard: React.Dispatch<React.SetStateAction<Array<Piece>>>,
+    disconnectFromGame: () => void,
+    numberOfPlayer: number
 ) {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
         console.log("Already connected to the game!");
@@ -75,13 +79,12 @@ export function handleConnectToGame(
                     break;
 
                 case "board":
-                    handleBoardUpdate(data, setBoard);
+                    handleBoardUpdate(data, setBoard, setNumberOfPlayer);
                     break;
 
                 case "piece_captured":
                     handlePieceCaptured(data, setGraveyard);
                     break;
-                    
 
                 default:
                     console.log("Unknown message type:", data.type);
@@ -104,4 +107,4 @@ export function handleConnectToGame(
         clearTimeout(connectionTimeout);
         console.log("Error: WebSocket connection failed.");
     };
-} 
+}

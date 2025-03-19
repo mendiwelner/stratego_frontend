@@ -7,11 +7,18 @@ interface PlayerCircleProps {
 }
 
 const PlayerCircle: React.FC<PlayerCircleProps> = ({ numberOfPlayer, value }) => {
+    let backgroundColor;
+
+    if (numberOfPlayer === 0) {
+        backgroundColor = '#D27C28'; 
+    } else if (numberOfPlayer === 1) {
+        backgroundColor = 'blue';   
+    } else if (numberOfPlayer === 2) {
+        backgroundColor = 'red';   
+    }
+
     return (
-        <div
-            className="player-circle"
-            style={{ backgroundColor: numberOfPlayer === 1 ? 'blue' : 'red' }}
-        >
+        <div className="player-circle" style={{ backgroundColor }}>
             {value && <span className="circle-text">{value}</span>}
         </div>
     );

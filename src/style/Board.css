@@ -1,21 +1,16 @@
-/* Board.css */
-
-/* Board container styling: 10x10 grid */
 .board-container {
     display: flex;
-    justify-content: center;  /* עדיין שומר על מרכז אופקי */
-    align-items: flex-start;  /* יישר ללמעלה במקום לאמצע */
-    height: 100vh;
-    width: 100vw;
-    padding-top: 20px; /* רווח קטן מלמעלה */
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    box-sizing: border-box;
 }
-
 
 .board {
     display: grid;
     grid-template-columns: repeat(10, 50px);
     grid-template-rows: repeat(10, 50px);
     gap: 0px;
-    margin-top: 20px;
-    direction: ltr;
+    width: 500px;
+    height: 500px;
 }

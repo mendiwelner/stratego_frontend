@@ -7,7 +7,6 @@ export function handleMakeMove(
     setPossibleMoves: React.Dispatch<React.SetStateAction<Array<{ row: number; column: number }>>>
 ) {
     if (data.move) {
-        console.log("Processing move:", data.move);
         const { from_cell, to_cell, in_from_cell, in_to_cell, in_from_cell_show, in_to_cell_show, move_type, attacker_position } = data.move;
 
         if (move_type === "attack") {
