@@ -7,7 +7,8 @@ import DisconnectButton from './buttons/DisconnectButton';
 import Graveyard from '../elements/Graveyard.tsx';
 
 export default function Game() {
-    const { board, numberOfPlayer, graveyard, markedCell, markedCellHovered,possibleMoves, connectToGame, disconnectFromGame, socketRef } = useGameSocket();
+    const { board, numberOfPlayer, graveyard, markedCell, markedCellHovered, possibleMoves, connectToGame, disconnectFromGame, socketRef, playersData } = useGameSocket();
+
     return (
         <div className="game-container">
             <h1>Stratego Game</h1>
@@ -16,6 +17,10 @@ export default function Game() {
                 <DisconnectButton disconnectFromGame={disconnectFromGame} />
             </div>
             <div className="game-layout">
+                <div className="player-names">
+                    <div className="opponent-name">{playersData.opponent_name}</div>
+                </div>
+
                 <Board
                     board={board}
                     markedCell={markedCell}
@@ -23,6 +28,11 @@ export default function Game() {
                     possibleMoves={possibleMoves}
                     socketRef={socketRef}
                 />
+
+                <div className="player-names">
+                    <div className="your-name">{playersData.your_name}</div>
+                </div>
+
                 <Graveyard numberOfPlayer={numberOfPlayer} graveyard={graveyard}/>
             </div>
         </div>

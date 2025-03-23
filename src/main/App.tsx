@@ -1,12 +1,21 @@
 import React from "react";
 import "../style/App.css";
-import Game from './Game.tsx'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Game from './Game.tsx';
+import Login from './LogInPage.tsx';
+import SignUpPage from './SignUpPage.tsx';
 
 function App() {
   return (
-    <div className="App">
-      <Game />
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/game" element={<Game />} />
+          <Route path="/signup" element={<SignUpPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

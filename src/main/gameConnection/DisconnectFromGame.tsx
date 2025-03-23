@@ -6,6 +6,7 @@ export function handleDisconnectFromGame(
     setMarkedCellHovered: Function,
     setPossibleMoves: Function,
     setGraveyard: Function,
+    setPlayersData: Function,
     showMassage: boolean
 ) {
     if (!socketRef.current) return;
@@ -16,6 +17,10 @@ export function handleDisconnectFromGame(
     setPossibleMoves([]);
     setGraveyard([]);
     setNumberOfPlayer(0);
+    setPlayersData({
+        your_name: "",
+        opponent_name: ""
+      });      
     socketRef.current.close(1000, "User disconnected");
     socketRef.current = null;
 }

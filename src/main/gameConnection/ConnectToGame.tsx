@@ -8,7 +8,8 @@ import { handleMessage } from "../handleInputOperations/HandleMessage.tsx";
 import { handleBoardUpdate } from "../handleInputOperations/HandleBoardUpdate.tsx";
 import { handlePieceCaptured } from "../handleInputOperations/HandlePieceCaptured.tsx";
 import { Piece } from "../../interfaces/Piece.tsx";
-import { CellInterface } from "../../interfaces/Cell.tsx"
+import { CellInterface } from "../../interfaces/Cell.tsx";
+import { PlayersData } from "../../interfaces/PlayersData.tsx";
 
 export function handleConnectToGame(
     socketRef: React.MutableRefObject<WebSocket | null>,
@@ -19,15 +20,17 @@ export function handleConnectToGame(
     setPossibleMoves: React.Dispatch<React.SetStateAction<Array<CellInterface>>>,
     setGraveyard: React.Dispatch<React.SetStateAction<Array<Piece>>>,
     disconnectFromGame: () => void,
-    numberOfPlayer: number
+    setPlayersData: React.Dispatch<React.SetStateAction<PlayersData>>
 ) {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
         console.log("Already connected to the game!");
         return;
     }
 
-    const wsUrl = "ws://127.0.0.1:8000/player_connect_game";
+    const token = sessionStorage.getItem("access_token");
+    const wsUrl = `${process.env.REACT_APP_API_WS_URL}/games/player_connect_game?token=${token}`;
     socketRef.current = new WebSocket(wsUrl);
+    
 
     const connectionTimeout = setTimeout(() => {
         if (socketRef.current?.readyState !== WebSocket.OPEN) {
@@ -79,7 +82,7 @@ export function handleConnectToGame(
                     break;
 
                 case "board":
-                    handleBoardUpdate(data, setBoard, setNumberOfPlayer);
+                    handleBoardUpdate(data, setBoard, setPlayersData, setNumberOfPlayer);
                     break;
 
                 case "piece_captured":
