@@ -20,7 +20,8 @@ export function handleDisconnectFromGame(
     setPlayersData({
         your_name: "",
         opponent_name: ""
-      });      
+      });
+      
     socketRef.current.close(1000, "User disconnected");
     socketRef.current = null;
 }

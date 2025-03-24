@@ -13,6 +13,7 @@
     font-size: 20px;
     color: #000000;
     font-weight: bold;
+    user-select: none;
 }
 
 .graveyard-title h2 {
@@ -48,4 +49,31 @@
     background-color: #b9b8b8;
 }
 
+.logout-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 10px 20px;
+    background-color: #f44336; /* אדום */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    z-index: 10; /* ודא שהכפתור יהיה מעל אלמנטים אחרים */
+}
 
+.logout-button:hover {
+    background-color: #d32f2f;
+}
+
+
+@media (max-width: 768px) {
+    .piece-number {
+        margin-top: 5px;
+        font-size: 10px;
+        color: #000000;
+        font-weight: bold;
+        user-select: none;
+    }
+}

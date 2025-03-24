@@ -12,7 +12,7 @@ const SignUpPage = () => {
     e.preventDefault();
   
     if (!username || !password) {
-      setError("נא להזין שם משתמש וסיסמה.");
+      setError("please enter user name and password");
       return;
     }
   
@@ -35,17 +35,23 @@ const SignUpPage = () => {
       if (response.ok) {
         sessionStorage.setItem("access_token", data.access_token);
         
-        setSuccessMessage("הרשמה בוצעה בהצלחה!");
+        setSuccessMessage("Registration was successful!");
         setTimeout(() => {
           navigate("/game");
         }, 1500);
       } else {
         console.error("Error response:", data);
-        setError(data.message || "אירעה שגיאה במהלך הרישום.");
+        if (data.detail === "Address already exists!") {
+          setError("user name already exists, please choose an another name");
+        } else if (data.detail === "Invalid password format") {
+          setError("Invalid password format!");
+        } else {
+          setError(data.message || "log in error!");
+        }
       }
     } catch (error) {
       console.error("Request failed:", error);
-      setError("אירעה שגיאה, אנא נסה מאוחר יותר.");
+      setError("log in error, please try again later!");
     }
   };  
 
@@ -53,18 +59,18 @@ const SignUpPage = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="w-96 shadow-lg p-6">
-        <h2 className="text-center text-xl mb-4">הירשם עכשיו</h2>
+        <h2 className="text-center text-xl mb-4">sign in now</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
-            placeholder="שם משתמש"
+            placeholder="user name"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             className="w-full p-2 border rounded"
           />
           <input
             type="password"
-            placeholder="סיסמה"
+            placeholder="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full p-2 border rounded"
@@ -72,7 +78,7 @@ const SignUpPage = () => {
           {error && <p className="text-red-500 text-sm">{error}</p>}
           {successMessage && <p className="text-green-500 text-sm">{successMessage}</p>}
           <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded">
-            הירשם
+            sign in
           </button>
         </form>
       </div>

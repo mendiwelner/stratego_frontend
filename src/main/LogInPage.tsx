@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "./Button.tsx";
 import { Input } from "./Input.tsx";
 import { Card, CardContent, CardHeader, CardTitle } from "./Card.tsx";
-import { Link } from "react-router-dom"; // יבוא של Link
+import { Link } from "react-router-dom"; 
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -14,7 +14,7 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!username || !password) {
-      setError("נא להזין שם משתמש וסיסמה.");
+      setError("please enter user name and password");
       return;
     }
 
@@ -26,7 +26,7 @@ const Login = () => {
       });
 
       if (!response.ok) {
-        throw new Error("שם משתמש או סיסמה שגויים.");
+        throw new Error("invalid user name or password");
       }
 
       const data = await response.json();
@@ -35,7 +35,7 @@ const Login = () => {
       setError("");
       navigate("/game");
     } catch (err: any) {
-      setError(err.message || "שגיאה בהתחברות.");
+      setError(err.message || "log in error");
     }
   };
 
@@ -43,27 +43,27 @@ const Login = () => {
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <Card className="w-96 shadow-lg">
         <CardHeader>
-          <CardTitle className="text-center">Stratego - התחברות</CardTitle>
+          <CardTitle className="text-center">Stratego - log in</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
               type="text"
-              placeholder="שם משתמש"
+              placeholder="user name"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
             <Input
               type="password"
-              placeholder="סיסמה"
+              placeholder="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}
-            <Button type="submit" className="w-full">התחבר</Button>
+            <Button type="submit" className="w-full">log in</Button>
           </form>
           <div className="text-center mt-4">
-            <Link to="/signup" className="text-blue-500 hover:underline">הירשם כאן אם אין לך חשבון</Link>
+            <Link to="/signup" className="text-blue-500 hover:underline">new user? sign in here</Link>
           </div>
         </CardContent>
       </Card>

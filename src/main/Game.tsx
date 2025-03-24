@@ -5,35 +5,39 @@ import '../style/Game.css';
 import ConnectButton from './buttons/ConnectButton';
 import DisconnectButton from './buttons/DisconnectButton';
 import Graveyard from '../elements/Graveyard.tsx';
+import SearchingIndicator from "../elements/SearchingIndicator.tsx";
+import LogoutButton from "./buttons/LogoutButton.tsx";
 
 export default function Game() {
-    const { board, numberOfPlayer, graveyard, markedCell, markedCellHovered, possibleMoves, connectToGame, disconnectFromGame, socketRef, playersData } = useGameSocket();
+    const gameData = useGameSocket(); 
 
     return (
         <div className="game-container">
             <h1>Stratego Game</h1>
             <div className="game-controls">
-                <ConnectButton connectToGame={connectToGame} />
-                <DisconnectButton disconnectFromGame={disconnectFromGame} />
+                <LogoutButton logout={gameData.logout} />
+                <ConnectButton connectToGame={gameData.connectToGame} />
+                <DisconnectButton disconnectFromGame={gameData.disconnectFromGame} />
             </div>
+            {gameData.isSearching && <SearchingIndicator />}
             <div className="game-layout">
                 <div className="player-names">
-                    <div className="opponent-name">{playersData.opponent_name}</div>
+                    <div className="opponent-name">{gameData.playersData.opponent_name}</div>
                 </div>
 
                 <Board
-                    board={board}
-                    markedCell={markedCell}
-                    markedCellHovered={markedCellHovered}
-                    possibleMoves={possibleMoves}
-                    socketRef={socketRef}
+                    board={gameData.board}
+                    markedCell={gameData.markedCell}
+                    markedCellHovered={gameData.markedCellHovered}
+                    possibleMoves={gameData.possibleMoves}
+                    socketRef={gameData.socketRef}
                 />
 
                 <div className="player-names">
-                    <div className="your-name">{playersData.your_name}</div>
+                    <div className="your-name">{gameData.playersData.your_name}</div>
                 </div>
 
-                <Graveyard numberOfPlayer={numberOfPlayer} graveyard={graveyard}/>
+                <Graveyard numberOfPlayer={gameData.numberOfPlayer} graveyard={gameData.graveyard} />
             </div>
         </div>
     );

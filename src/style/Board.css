@@ -14,3 +14,12 @@
     width: 500px;
     height: 500px;
 }
+
+@media (max-width: 768px) {
+    .board {
+        grid-template-columns: repeat(10, 30px); /* קטן יותר */
+        grid-template-rows: repeat(10, 30px);    /* קטן יותר */
+        width: 300px;  /* קטן יותר */
+        height: 300px; /* קטן יותר */
+    }
+}

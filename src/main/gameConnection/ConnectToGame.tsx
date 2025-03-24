@@ -20,7 +20,8 @@ export function handleConnectToGame(
     setPossibleMoves: React.Dispatch<React.SetStateAction<Array<CellInterface>>>,
     setGraveyard: React.Dispatch<React.SetStateAction<Array<Piece>>>,
     disconnectFromGame: () => void,
-    setPlayersData: React.Dispatch<React.SetStateAction<PlayersData>>
+    setPlayersData: React.Dispatch<React.SetStateAction<PlayersData>>,
+    setIsSearching: React.Dispatch<React.SetStateAction<boolean>>
 ) {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
         console.log("Already connected to the game!");
@@ -31,7 +32,6 @@ export function handleConnectToGame(
     const wsUrl = `${process.env.REACT_APP_API_WS_URL}/games/player_connect_game?token=${token}`;
     socketRef.current = new WebSocket(wsUrl);
     
-
     const connectionTimeout = setTimeout(() => {
         if (socketRef.current?.readyState !== WebSocket.OPEN) {
             console.log("Failed to connect: Server unreachable.");
@@ -82,6 +82,7 @@ export function handleConnectToGame(
                     break;
 
                 case "board":
+                    setIsSearching(false);
                     handleBoardUpdate(data, setBoard, setPlayersData, setNumberOfPlayer);
                     break;
 

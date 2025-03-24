@@ -10,3 +10,24 @@
     font-size: 20px;
     text-align: center;
 }
+
+.circle-text {
+    user-select: none; 
+  }
+  
+
+  @media (max-width: 768px) {
+    .player-circle  {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 10px;
+        text-align: center;
+    }
+}
+
