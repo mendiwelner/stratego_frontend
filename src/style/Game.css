@@ -2,13 +2,8 @@
 
 .game-container {
     text-align: center;
-    direction: rtl;
+    direction: rtl; /* הכיוון הוא מימין לשמאל */
     font-family: Arial, sans-serif;
-}
-
-h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
 }
 
 button {
@@ -38,4 +33,52 @@ button:hover {
     font-weight: bold;
     color: rgb(0, 0, 0);
     margin-bottom: 40px;
+}
+
+.game-headers {
+    display: flex;
+    width: 100%;
+}
+
+.left-section {
+    flex: 0 0 20%; /* חלק שמאלי, 20% */
+    display: flex;
+    justify-content: flex-start; /* לוודא שהכפתור בצד שמאל */
+}
+
+.center-section {
+    flex: 0 0 60%; /* חלק אמצעי, 60% */
+    display: flex;
+    justify-content: center; /* למרכז את הכפתורים בתוך החלק */
+    align-items: center; /* למרכז את הכפתורים במאונך */
+}
+
+.right-section {
+    flex: 0 0 20%; /* חלק ימני, 20% */
+    display: center;
+    justify-content: flex-start; /* לוודא שהכפתור בצד שמאל */
+}
+
+.game-controls {
+    display: flex;
+    width: 100%;
+}
+
+.left-section {
+    flex: 0 0 20%; /* חלק שמאלי, 20% */
+    display: flex;
+    justify-content: flex-start; /* לוודא שהכפתור בצד שמאל */
+}
+
+.center-section {
+    flex: 0 0 60%; /* חלק אמצעי, 60% */
+    display: flex;
+    justify-content: center; /* למרכז את הכפתורים בתוך החלק */
+    align-items: center; /* למרכז את הכפתורים במאונך */
+}
+
+.right-section {
+    flex: 0 0 20%; /* חלק ימני, 20% */
+    display: center;
+    justify-content: flex-start; /* לוודא שהכפתור בצד שמאל */
 }

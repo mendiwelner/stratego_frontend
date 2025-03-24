@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import "../../style/LogoutButton.css";  // יש לוודא שהנתיב הזה נכון
 
 interface LogoutButtonProps {
     logout: () => void;
@@ -10,14 +11,15 @@ const LogoutButton: React.FC<LogoutButtonProps> = ({ logout }) => {
 
     const handleLogout = () => {
         logout();
-        navigate('/'); 
+        navigate('/');
     };
 
     return (
-        <button className="logout-button" onClick={handleLogout}>
-            Logout
-        </button>
+        <button onClick={handleLogout}>Logout</button>
     );
 };
 
 export default LogoutButton;
+
+
+

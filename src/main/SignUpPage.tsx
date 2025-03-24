@@ -37,7 +37,7 @@ const SignUpPage = () => {
         
         setSuccessMessage("Registration was successful!");
         setTimeout(() => {
-          navigate("/game");
+          navigate("/game", { state: { username } });
         }, 1500);
       } else {
         console.error("Error response:", data);

@@ -33,7 +33,7 @@ const Login = () => {
       console.log(data);
       sessionStorage.setItem("access_token", data.access_token);
       setError("");
-      navigate("/game");
+      navigate("/game", { state: { username } });
     } catch (err: any) {
       setError(err.message || "log in error");
     }
