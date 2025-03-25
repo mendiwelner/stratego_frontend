@@ -23,6 +23,7 @@ const GameLayout: React.FC<GameLayoutProps> = ({ board, gameData }) => {
                 markedCellHovered={gameData.markedCellHovered}
                 possibleMoves={gameData.possibleMoves}
                 socketRef={gameData.socketRef}
+                numberOfPlayer={gameData.numberOfPlayer}
             />
 
             <div className="player-names">

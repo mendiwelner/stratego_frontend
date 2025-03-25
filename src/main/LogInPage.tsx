@@ -17,9 +17,9 @@ const Login = () => {
       setError("please enter user name and password");
       return;
     }
-
+    const url = `${process.env.REACT_APP_API_HTTP_URL}/users/login`;
     try {
-      const response = await fetch("http://127.0.0.1:8000/users/login", {
+      const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({ username, password }).toString(),

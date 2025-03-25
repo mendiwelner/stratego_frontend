@@ -2,19 +2,21 @@ import React from 'react';
 import '../style/PlayerCircle.css';
 
 interface PlayerCircleProps {
-    numberOfPlayer: number;
+    color: number;
     value: string;
 }
 
-const PlayerCircle: React.FC<PlayerCircleProps> = ({ numberOfPlayer, value }) => {
+const PlayerCircle: React.FC<PlayerCircleProps> = ({ color, value }) => {
     let backgroundColor;
 
-    if (numberOfPlayer === 0) {
+    if (color === 0) {
         backgroundColor = '#D27C28'; 
-    } else if (numberOfPlayer === 1) {
+    } else if (color === 1) {
         backgroundColor = 'blue';   
-    } else if (numberOfPlayer === 2) {
-        backgroundColor = 'red';   
+    } else if (color === 2) {
+        backgroundColor = 'red';  
+    } else if (color === 3) {
+        backgroundColor = 'green';  
     }
 
     return (

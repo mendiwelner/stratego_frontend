@@ -11,14 +11,31 @@ interface GraveyardProps {
 const Graveyard: React.FC<GraveyardProps> = ({ numberOfPlayer, graveyard }) => {
     function countPiecesByValueAndPlayer(
         graveyard: Piece[],
-        value: string,
-        numberOfPlayer: number
-    ): number {
-        return graveyard.filter(piece => piece.value === value && piece.number_of_player === numberOfPlayer).length;
+        index: number,
+        numberOfPlayer: number,
+        rotate: boolean
+    ): number | string {
+        if (rotate) {
+            if (numberOfPlayer === 1) {
+                numberOfPlayer = 2;
+            } else if (numberOfPlayer === 2) {
+                numberOfPlayer = 1;
+            }
+        }
+        const value = String(index);
+        if (numberOfPlayer === 0) {
+            return '';
+        }
+        const amount = playerPiecesAmounts[index];
+        return graveyard.filter(piece => piece.value === value && piece.number_of_player === numberOfPlayer).length + '/' + amount;
     }
 
     const playerPieces = [
         'b', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'
+    ];
+
+    const playerPiecesAmounts = [
+        6, 1, 8, 5, 4, 4, 4, 3, 2, 1, 1
     ];
 
     return (
@@ -31,11 +48,11 @@ const Graveyard: React.FC<GraveyardProps> = ({ numberOfPlayer, graveyard }) => {
                     {playerPieces.map((piece, index) => (
                         <div key={index} className="graveyard-item">
                             <PlayerCircle
-                                numberOfPlayer={numberOfPlayer}
+                                color={numberOfPlayer === 0 ? 0 : 1}
                                 value={piece}
                             />
                             <div className="piece-number">
-                                {numberOfPlayer === 0 ? '' : countPiecesByValueAndPlayer(graveyard, String(index), numberOfPlayer)}
+                                {countPiecesByValueAndPlayer(graveyard, index, numberOfPlayer, false)}
                             </div>
                         </div>
                     ))}
@@ -44,11 +61,11 @@ const Graveyard: React.FC<GraveyardProps> = ({ numberOfPlayer, graveyard }) => {
                     {playerPieces.map((piece, index) => (
                         <div key={index} className="graveyard-item2">
                             <PlayerCircle
-                                numberOfPlayer={numberOfPlayer === 0 ? 0 : numberOfPlayer === 1 ? 2 : 1}
+                                color={numberOfPlayer === 0 ? 0 : 2}
                                 value={piece}
                             />
                             <div className="piece-number">
-                                {numberOfPlayer === 0 ? '' : countPiecesByValueAndPlayer(graveyard, String(index), numberOfPlayer === 1 ? 2 : 1)}
+                                {countPiecesByValueAndPlayer(graveyard, index, numberOfPlayer, true)}
                             </div>
                         </div>
                     ))}

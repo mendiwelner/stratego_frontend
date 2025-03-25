@@ -12,9 +12,10 @@ interface CellProps {
     isHoverMarked: boolean;
     isPossibleMove: boolean;
     socketRef: React.RefObject<WebSocket | null>;
+    numberOfPlayer: number;
 }
 
-const Cell: React.FC<CellProps> = ({ row, column, cell, isForbidden, markedCell, isMarked, isHoverMarked, isPossibleMove, socketRef }) => {
+const Cell: React.FC<CellProps> = ({ row, column, cell, isForbidden, markedCell, isMarked, isHoverMarked, isPossibleMove, socketRef, numberOfPlayer }) => {
     const handleCellClick = () => {
         if (!socketRef.current || socketRef.current.readyState !== WebSocket.OPEN) {
             console.log('WebSocket is not connected.');
@@ -54,6 +55,16 @@ const Cell: React.FC<CellProps> = ({ row, column, cell, isForbidden, markedCell,
         socketRef.current.send(JSON.stringify(checkHover));
     };
 
+    const chooseColor = (cellPlayerNumber: number, PlayerNumber: number) => {
+        if (PlayerNumber === 0) {
+            return 3;
+        } else if (PlayerNumber === cellPlayerNumber) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
     return (
         <div
             className={`cell 
@@ -65,7 +76,7 @@ const Cell: React.FC<CellProps> = ({ row, column, cell, isForbidden, markedCell,
             onMouseEnter={handleHover}  
         >
             {cell.number_of_player ? (
-                <PlayerCircle numberOfPlayer={cell.number_of_player} value={cell.value} />
+                <PlayerCircle color={chooseColor(cell.number_of_player, numberOfPlayer)} value={cell.value} />
             ) : (
                 cell.value && <span>{cell.value}</span>
             )}

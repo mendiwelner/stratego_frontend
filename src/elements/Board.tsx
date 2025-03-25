@@ -10,9 +10,10 @@ interface BoardProps {
   markedCellHovered?: CellInterface | null;
   possibleMoves?: CellInterface[] | null;
   socketRef: React.RefObject<WebSocket | null>;
+  numberOfPlayer: number;
 }
 
-const Board: React.FC<BoardProps> = ({ board, markedCell, markedCellHovered, possibleMoves = [], socketRef }) => {
+const Board: React.FC<BoardProps> = ({ board, markedCell, markedCellHovered, possibleMoves = [], socketRef, numberOfPlayer }) => {
 
   const forbiddenCells = [
     { row: 4, column: 2 }, { row: 4, column: 3 },
@@ -46,6 +47,7 @@ const Board: React.FC<BoardProps> = ({ board, markedCell, markedCellHovered, pos
               isPossibleMove={isPossibleMove(rowIndex, colIndex)}
               markedCell={markedCell}
               socketRef={socketRef}
+              numberOfPlayer={numberOfPlayer}
             />
           ))
         )}
