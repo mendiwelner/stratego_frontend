@@ -6,8 +6,7 @@ import { CellInterface } from "../interfaces/Cell.tsx";
 import { PlayersData } from "../interfaces/PlayersData.tsx";
 import { GameData } from "../interfaces/GameData.tsx";
 
-export function useGameSocket(): GameData {
-    const [board, setBoard] = useState<Array<Array<Piece>>>(Array(10).fill(null).map(() => Array(10).fill({ number_of_player: 0, value: "" })));
+export function useGameSocket(setBoard: React.Dispatch<React.SetStateAction<Array<Array<Piece>>>>): GameData {
     const [markedCell, setMarkedCell] = useState<CellInterface | null>(null);
     const [markedCellHovered, setMarkedCellHovered] = useState<CellInterface | null>(null);
     const [possibleMoves, setPossibleMoves] = useState<Array<CellInterface>>([]);
@@ -82,7 +81,6 @@ export function useGameSocket(): GameData {
     }, [socketRef.current]);
 
     return {
-        board,
         numberOfPlayer,
         graveyard,
         markedCell,

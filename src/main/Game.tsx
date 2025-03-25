@@ -1,62 +1,29 @@
 import React from "react";
 import { useGameSocket } from './GameSocket.tsx';
-import Board from '../elements/Board.tsx';
 import '../style/Game.css';
-import ConnectButton from './buttons/ConnectButton';
-import DisconnectButton from './buttons/DisconnectButton';
-import Graveyard from '../elements/Graveyard.tsx';
 import SearchingIndicator from "../elements/SearchingIndicator.tsx";
-import LogoutButton from "./buttons/LogoutButton.tsx";
 import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import { Piece } from "../interfaces/Piece.tsx";
+import GameHeaders from "../elements/GameHeaders.tsx";
+import GameControls from "../elements/GameControls.tsx";
+import GameLayout from "../elements/GameLayout.tsx";
 
 export default function Game() {
+    const [board, setBoard] = useState<Array<Array<Piece>>>(Array(10).fill(null).map(() => Array(10).fill({ number_of_player: 0, value: "" })));
     const location = useLocation();
-    const username = location.state?.username;
-    const gameData = useGameSocket();
+    const userData = location.state?.data;
+    const gameData = useGameSocket(setBoard);
+    if (userData.board) {
+        setBoard(userData.board)
+    }
 
     return (
         <div className="game-container">
-            <div className="game-headers">
-                <div className="left-section">
-                </div>
-                <div className="center-section">
-                    <h1>Stratego Game</h1>
-                </div>
-                <div className="right-section">
-                    <h1>{username}</h1>
-                </div>
-            </div>
-            <div className="game-controls">
-                <div className="left-section">
-                </div>
-                <div className="center-section">
-                    <ConnectButton connectToGame={gameData.connectToGame} />
-                    <DisconnectButton disconnectFromGame={gameData.disconnectFromGame} />
-                </div>
-                <div className="right-section">
-                    <LogoutButton logout={gameData.logout}/>
-                </div>
-            </div>
+            <GameHeaders userName={userData?.user_name} />
+            <GameControls gameData={gameData} />
             {gameData.isSearching && <SearchingIndicator />}
-            <div className="game-layout">
-                <div className="player-names">
-                    <div className="opponent-name">{gameData.playersData.opponent_name}</div>
-                </div>
-
-                <Board
-                    board={gameData.board}
-                    markedCell={gameData.markedCell}
-                    markedCellHovered={gameData.markedCellHovered}
-                    possibleMoves={gameData.possibleMoves}
-                    socketRef={gameData.socketRef}
-                />
-
-                <div className="player-names">
-                    <div className="your-name">{gameData.playersData.your_name}</div>
-                </div>
-
-                <Graveyard numberOfPlayer={gameData.numberOfPlayer} graveyard={gameData.graveyard} />
-            </div>
+            <GameLayout board={board} gameData={gameData} />
         </div>
     );
 }

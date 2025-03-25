@@ -18,10 +18,11 @@ const SignUpPage = () => {
   
     setError("");
     setSuccessMessage("");
-  
+    const url = `${process.env.REACT_APP_API_HTTP_URL}/users/?name=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
+    console.log(url);
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_HTTP_URL}/users/?name=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+        url,
         {
           method: "POST",
           headers: {
@@ -33,11 +34,11 @@ const SignUpPage = () => {
       const data = await response.json();
       console.log(data);
       if (response.ok) {
-        sessionStorage.setItem("access_token", data.access_token);
-        
+        sessionStorage.setItem("access_token", data.token.access_token);
+        console.log(data);
         setSuccessMessage("Registration was successful!");
         setTimeout(() => {
-          navigate("/game", { state: { username } });
+          navigate("/game", { state: { data } });
         }, 1500);
       } else {
         console.error("Error response:", data);

@@ -1,0 +1,35 @@
+.game-controls {
+    display: flex;
+    width: 100%;
+}
+
+.left-section {
+    flex: 0 0 20%; /* חלק שמאלי, 20% */
+    display: flex;
+    justify-content: flex-start; /* לוודא שהכפתור בצד שמאל */
+}
+
+.center-section {
+    flex: 0 0 60%; /* חלק אמצעי, 60% */
+    display: flex;
+    justify-content: center; /* למרכז את הכפתורים בתוך החלק */
+    align-items: center; /* למרכז את הכפתורים במאונך */
+}
+
+.right-section {
+    flex: 0 0 20%; /* חלק ימני, 20% */
+    display: center;
+    justify-content: flex-start; /* לוודא שהכפתור בצד שמאל */
+}
+
+
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f0f0f0;
+}

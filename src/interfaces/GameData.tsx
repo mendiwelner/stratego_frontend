@@ -3,7 +3,6 @@ import { CellInterface } from "../interfaces/Cell.tsx";
 import { PlayersData } from "../interfaces/PlayersData.tsx";
 
 export interface GameData {
-    board: Array<Array<Piece>>;
     markedCell: CellInterface | null;
     markedCellHovered: CellInterface | null;
     possibleMoves: Array<CellInterface>;
