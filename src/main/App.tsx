@@ -1,10 +1,10 @@
 import React from "react";
-import "../style/App.css";
+import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Game from './Game.tsx';
-import Login from './LogInPage.tsx';
-import SignUpPage from './SignUpPage.tsx';
-import SetupPage from "./SetupPage.tsx";
+import Game from '../pages/game/Game.tsx';
+import Login from '../pages/login/LogInPage.tsx';
+import SignUpPage from '../pages/signup/SignUpPage.tsx';
+import SetupPage from "../pages/setup/SetupPage.tsx";
 
 function App() {
   return (
