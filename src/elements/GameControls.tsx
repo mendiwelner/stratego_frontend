@@ -4,6 +4,7 @@ import "../style/GameHeaders.css";
 import ConnectButton from "../main/buttons/ConnectButton.tsx";
 import DisconnectButton from "../main/buttons/DisconnectButton.tsx";
 import LogoutButton from "../main/buttons/LogoutButton.tsx";
+import SetupButton from "../main/buttons/SetupButton.tsx"
 import "../style/GameControls.css";
 
 interface GameControlsProps {
@@ -14,6 +15,7 @@ const GameControls: React.FC<GameControlsProps> = ({ gameData }) => {
     return (
         <div className="game-controls">
             <div className="left-section">
+                <SetupButton logout={gameData.logout} />
             </div>
             <div className="center-section">
                 <ConnectButton connectToGame={gameData.connectToGame} />

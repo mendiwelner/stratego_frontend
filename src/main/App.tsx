@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Game from './Game.tsx';
 import Login from './LogInPage.tsx';
 import SignUpPage from './SignUpPage.tsx';
+import SetupPage from "./SetupPage.tsx";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/game" element={<Game />} />
           <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/setup" element={<SetupPage />} />
         </Routes>
       </div>
     </Router>

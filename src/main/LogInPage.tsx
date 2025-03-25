@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./Button.tsx";
-import { Input } from "./Input.tsx";
+import { Input } from "../interfaces/Input.tsx";
 import { Card, CardContent, CardHeader, CardTitle } from "./Card.tsx";
 import { Link } from "react-router-dom"; 
 

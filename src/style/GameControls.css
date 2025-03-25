@@ -4,9 +4,10 @@
 }
 
 .left-section {
-    flex: 0 0 20%; /* חלק שמאלי, 20% */
+    flex: 0 0 20%;
     display: flex;
-    justify-content: flex-start; /* לוודא שהכפתור בצד שמאל */
+    justify-content: center; /* ממרכז את הכפתור אופקית */
+    align-items: center; /* ממרכז את הכפתור אנכית */
 }
 
 .center-section {

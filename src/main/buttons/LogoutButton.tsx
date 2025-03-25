@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import "../../style/LogoutButton.css";  // יש לוודא שהנתיב הזה נכון
+import "../../style/LogoutButton.css";  
 
 interface LogoutButtonProps {
     logout: () => void;
