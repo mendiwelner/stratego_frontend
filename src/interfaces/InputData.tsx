@@ -13,4 +13,5 @@ export interface InputData {
     inputMove: Move;
     number_of_player: number;
     players_data: { your_name: string, opponent_name: string };
+    result: string;
 }

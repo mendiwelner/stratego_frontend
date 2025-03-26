@@ -99,6 +99,10 @@ export function handleConnectToGame(
                     handlePieceCaptured(data, setGraveyard);
                     break;
 
+                case "endgame":
+                    console.log(data);
+                    break;
+
                 default:
                     console.log("Unknown message type:", data.type);
                     break;
