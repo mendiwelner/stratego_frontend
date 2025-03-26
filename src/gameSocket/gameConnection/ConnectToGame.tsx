@@ -78,6 +78,7 @@ export function handleConnectToGame(
                     break;
 
                 case "make_move":
+                    console.log(data);
                     handleMakeMove(data, setBoard, setMarkedCell, setPossibleMoves);
                     break;
 

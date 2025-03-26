@@ -1,6 +1,18 @@
-import { InputData } from "../../../interfaces/InputData.tsx"
-import { Piece } from "../../../interfaces/Piece.tsx"
-import { CellInterface } from "../../../interfaces/Cell.tsx"
+import { InputData } from "../../../interfaces/InputData.tsx";
+import { Piece } from "../../../interfaces/Piece.tsx";
+import { CellInterface } from "../../../interfaces/Cell.tsx";
+
+function updateCellState(
+    board: Array<Array<Piece>>, 
+    updates: { row: number; col: number; value: Piece }[]
+): Array<Array<Piece>> {
+    return board.map((row, rowIndex) =>
+        row.map((cell, colIndex) => {
+            const update = updates.find(u => u.row === rowIndex && u.col === colIndex);
+            return update ? update.value : cell;
+        })
+    );
+}
 
 export function handleMakeMove(
     data: InputData,
@@ -8,78 +20,30 @@ export function handleMakeMove(
     setMarkedCell: React.Dispatch<React.SetStateAction<CellInterface | null>>,
     setPossibleMoves: React.Dispatch<React.SetStateAction<Array<CellInterface>>>
 ) {
-    if (data.move) {
-        const { from_cell, to_cell, in_from_cell, in_to_cell, in_from_cell_show, in_to_cell_show, move_type, attacker_position } = data.move;
+    if (!data.move) return;
 
-        if (move_type === "attack") {
-            setBoard(prevBoard =>
-                prevBoard.map((row, rowIndex) =>
-                    row.map((cell, colIndex) => {
-                        if (attacker_position && rowIndex === attacker_position.row && colIndex === attacker_position.column) {
-                            return in_from_cell_show && typeof in_from_cell_show === "object"
-                                ? in_from_cell_show
-                                : { number_of_player: 0, value: "" };
-                        }
-                        if (attacker_position && rowIndex === from_cell?.row && colIndex === from_cell.column) {
-                            return typeof in_from_cell === "object"
-                                ? in_from_cell
-                                : { number_of_player: 0, value: "" };
-                        }
-                        if (rowIndex === to_cell?.row && colIndex === to_cell.column) {
-                            return in_to_cell_show && typeof in_to_cell_show === "object"
-                                ? in_to_cell_show
-                                : { number_of_player: 0, value: "" };
-                        }
-                        return cell;
-                    })
-                )
-            );
+    const { from_cell, to_cell, in_from_cell, in_to_cell, in_from_cell_show, in_to_cell_show, move_type, attacker_position } = data.move;
+    
+    const initialUpdates = [
+        attacker_position && { row: attacker_position.row, col: attacker_position.column, value: in_from_cell_show || { number_of_player: 0, value: "" } },
+        from_cell && { row: from_cell.row, col: from_cell.column, value: in_from_cell || { number_of_player: 0, value: "" } },
+        to_cell && { row: to_cell.row, col: to_cell.column, value: in_to_cell_show || { number_of_player: 0, value: "" } }
+    ].filter(Boolean) as { row: number; col: number; value: Piece }[];
+    
+    setBoard(prevBoard => updateCellState(prevBoard, initialUpdates));
 
-            setTimeout(() => {
-                setBoard(prevBoard =>
-                    prevBoard.map((row, rowIndex) =>
-                        row.map((cell, colIndex) => {
-                            if (attacker_position && rowIndex === attacker_position.row && colIndex === attacker_position.column) {
-                                return typeof in_from_cell === "object"
-                                    ? in_from_cell
-                                    : { number_of_player: 0, value: "" };
-                            }
-                            if (!attacker_position && rowIndex === from_cell?.row && colIndex === from_cell.column) {
-                                return typeof in_from_cell === "object"
-                                    ? in_from_cell
-                                    : { number_of_player: 0, value: "" };
-                            }
-                            if (rowIndex === to_cell?.row && colIndex === to_cell.column) {
-                                return typeof in_to_cell === "object"
-                                    ? in_to_cell
-                                    : { number_of_player: 0, value: "" };
-                            }
-                            return cell;
-                        })
-                    )
-                );
-            }, 1000);
-        } else {
-            setBoard(prevBoard =>
-                prevBoard.map((row, rowIndex) =>
-                    row.map((cell, colIndex) => {
-                        if (rowIndex === from_cell?.row && colIndex === from_cell.column) {
-                            return typeof in_from_cell === "object" && attacker_position
-                                ? in_from_cell
-                                : { number_of_player: 0, value: "" };
-                        }
-                        if (rowIndex === to_cell?.row && colIndex === to_cell.column) {
-                            return typeof in_to_cell === "object"
-                                ? in_to_cell
-                                : { number_of_player: 0, value: "" };
-                        }
-                        return cell;
-                    })
-                )
-            );
-        }
+    if (move_type === "attack") {
+        setTimeout(() => {
+            const finalUpdates = [
+                attacker_position && { row: attacker_position.row, col: attacker_position.column, value: in_from_cell || { number_of_player: 0, value: "" } },
+                !attacker_position && from_cell && { row: from_cell.row, col: from_cell.column, value: in_from_cell || { number_of_player: 0, value: "" } },
+                to_cell && { row: to_cell.row, col: to_cell.column, value: in_to_cell || { number_of_player: 0, value: "" } }
+            ].filter(Boolean) as { row: number; col: number; value: Piece }[];
 
-        setMarkedCell(null);
-        setPossibleMoves([]);
+            setBoard(prevBoard => updateCellState(prevBoard, finalUpdates));
+        }, 1000);
     }
+
+    setMarkedCell(null);
+    setPossibleMoves([]);
 }
