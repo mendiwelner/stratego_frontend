@@ -11,13 +11,14 @@
     text-align: center;
 }
 
-.circle-text {
-    user-select: none; 
-  }
-  
 
-  @media (max-width: 768px) {
-    .player-circle  {
+.circle-text {
+    user-select: none;
+}
+
+
+@media (max-width: 768px) {
+    .player-circle {
         width: 20px;
         height: 20px;
         border-radius: 50%;
@@ -30,4 +31,3 @@
         text-align: center;
     }
 }
-
