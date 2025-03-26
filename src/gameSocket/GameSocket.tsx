@@ -6,7 +6,7 @@ import { CellInterface } from "../interfaces/Cell.tsx";
 import { PlayersData } from "../interfaces/PlayersData.tsx";
 import { GameData } from "../interfaces/GameData.tsx";
 
-export function useGameSocket(setBoard: React.Dispatch<React.SetStateAction<Array<Array<Piece>>>>, userData: any): GameData {
+export function useGameSocket(setBoard: React.Dispatch<React.SetStateAction<Array<Array<Piece>>>>, userData: any, makeMove: any, setLastMove: any): GameData {
     const [markedCell, setMarkedCell] = useState<CellInterface | null>(null);
     const [markedCellHovered, setMarkedCellHovered] = useState<CellInterface | null>(null);
     const [possibleMoves, setPossibleMoves] = useState<Array<CellInterface>>([]);
@@ -18,6 +18,7 @@ export function useGameSocket(setBoard: React.Dispatch<React.SetStateAction<Arra
         opponent_name: ""
     });
     const [isSearching, setIsSearching] = useState<boolean>(false);
+    const [isInGame, setIsInGame] = useState<boolean>(false);
 
     const logout = () => {
         setPlayersData({
@@ -31,14 +32,14 @@ export function useGameSocket(setBoard: React.Dispatch<React.SetStateAction<Arra
         setPossibleMoves([]);
         setNumberOfPlayer(0);
         setIsSearching(false);
+        setIsInGame(false);
         disconnectFromGame();
         
         console.log("User logged out.");
     };
 
     const connectToGame = () => {
-        setIsSearching(true);
-        handleConnectToGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, disconnectFromGame, setPlayersData, setIsSearching);
+        handleConnectToGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, disconnectFromGame, setPlayersData, setIsSearching, setIsInGame, makeMove);
     };
 
     const disconnectFromGame = () => {
@@ -48,7 +49,7 @@ export function useGameSocket(setBoard: React.Dispatch<React.SetStateAction<Arra
             socketRef.current.onerror = null;
             socketRef.current.close();
         }
-        handleDisconnectFromGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, setPlayersData, userData.board_setup, true); 
+        handleDisconnectFromGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, setPlayersData, setIsInGame, setLastMove, userData.board_setup, true); 
         socketRef.current = null;
         setIsSearching(false);
     };
@@ -61,7 +62,7 @@ export function useGameSocket(setBoard: React.Dispatch<React.SetStateAction<Arra
         };
 
         socketRef.current.onclose = () => {
-            handleDisconnectFromGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, setPlayersData, userData.board_setup, false); 
+            handleDisconnectFromGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, setPlayersData, setIsInGame, setLastMove, userData.board_setup, false); 
             console.log("🔴 WebSocket connection closed!");
         };
 
@@ -91,6 +92,7 @@ export function useGameSocket(setBoard: React.Dispatch<React.SetStateAction<Arra
         socketRef,
         playersData,
         isSearching,
+        isInGame,
         logout
     };
 }

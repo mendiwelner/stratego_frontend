@@ -50,6 +50,8 @@ const Graveyard: React.FC<GraveyardProps> = ({ numberOfPlayer, graveyard }) => {
                             <PlayerCircle
                                 color={numberOfPlayer === 0 ? 0 : 1}
                                 value={piece}
+                                row={-1}
+                                column={-1}
                             />
                             <div className="piece-number">
                                 {countPiecesByValueAndPlayer(graveyard, index, numberOfPlayer, false)}
@@ -63,6 +65,8 @@ const Graveyard: React.FC<GraveyardProps> = ({ numberOfPlayer, graveyard }) => {
                             <PlayerCircle
                                 color={numberOfPlayer === 0 ? 0 : 2}
                                 value={piece}
+                                row={-1}
+                                column={-1}
                             />
                             <div className="piece-number">
                                 {countPiecesByValueAndPlayer(graveyard, index, numberOfPlayer, true)}

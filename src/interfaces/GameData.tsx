@@ -11,6 +11,7 @@ export interface GameData {
     socketRef: React.RefObject<WebSocket | null>;
     playersData: PlayersData;
     isSearching: boolean;
+    isInGame: boolean;
     connectToGame: () => void;
     disconnectFromGame: () => void;
     logout: () => void;

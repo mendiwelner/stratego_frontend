@@ -21,7 +21,9 @@ export function handleConnectToGame(
     setGraveyard: React.Dispatch<React.SetStateAction<Array<Piece>>>,
     disconnectFromGame: () => void,
     setPlayersData: React.Dispatch<React.SetStateAction<PlayersData>>,
-    setIsSearching: React.Dispatch<React.SetStateAction<boolean>>
+    setIsSearching: React.Dispatch<React.SetStateAction<boolean>>,
+    setIsInGame: React.Dispatch<React.SetStateAction<boolean>>,
+    makeMove: any
 ) {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
         console.log("Already connected to the game!");
@@ -31,7 +33,9 @@ export function handleConnectToGame(
     const token = sessionStorage.getItem("access_token");
     const wsUrl = `${process.env.REACT_APP_API_WS_URL}/games/player_connect_game?token=${token}`;
     socketRef.current = new WebSocket(wsUrl);
-    
+    setIsSearching(true);
+    setIsInGame(true);
+
     const connectionTimeout = setTimeout(() => {
         if (socketRef.current?.readyState !== WebSocket.OPEN) {
             console.log("Failed to connect: Server unreachable.");
@@ -78,8 +82,12 @@ export function handleConnectToGame(
                     break;
 
                 case "make_move":
-                    console.log(data);
-                    handleMakeMove(data, setBoard, setMarkedCell, setPossibleMoves);
+                    makeMove(data);
+                    setMarkedCell(null);
+                    setPossibleMoves([]);
+                    setTimeout(() => {
+                        handleMakeMove(data, setBoard);
+                    }, 400);
                     break;
 
                 case "board":

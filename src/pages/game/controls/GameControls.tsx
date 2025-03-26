@@ -12,11 +12,11 @@ interface GameControlsProps {
 }
 
 const GameControls: React.FC<GameControlsProps> = ({ gameData, userData }) => {
-    
+
     return (
         <div className="game-controls">
             <div className="left-section">
-                <SetupButton userData={userData} />
+                {!gameData.isInGame && <SetupButton userData={userData} />}
             </div>
             <div className="center-section">
                 <ConnectButton connectToGame={gameData.connectToGame} />

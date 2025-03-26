@@ -12,12 +12,16 @@ interface SetupCellProps {
 
 const SetupCell: React.FC<SetupCellProps> = ({ row, column, cell, onCellClick, isSelected }) => {
   return (
-    <div 
-      className={`SetupCell ${cell.value ? "hoverable" : ""} ${isSelected && cell.value ? "selected" : ""}`} 
+    <div
+      className={`SetupCell ${cell.value ? "hoverable" : ""} ${isSelected && cell.value ? "selected" : ""}`}
       onClick={() => onCellClick(row, column)}
     >
       {cell.number_of_player ? (
-        <PlayerCircle color={3} value={cell.value} />
+        <PlayerCircle
+          color={3}
+          value={cell.value}
+          row={-1}
+          column={-1} />
       ) : (
         cell.value && <span>{cell.value}</span>
       )}

@@ -7,6 +7,8 @@ export function handleDisconnectFromGame(
     setPossibleMoves: Function,
     setGraveyard: Function,
     setPlayersData: Function,
+    setIsInGame: Function,
+    setLastMove: Function,
     board_setup: any,
     showMassage: boolean
 ) {
@@ -18,6 +20,8 @@ export function handleDisconnectFromGame(
     setPossibleMoves([]);
     setGraveyard([]);
     setNumberOfPlayer(0);
+    setIsInGame(false);
+    setLastMove(null);
     setPlayersData({
         your_name: "",
         opponent_name: ""
