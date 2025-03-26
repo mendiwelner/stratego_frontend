@@ -1,35 +1,19 @@
-
 import React from 'react';
-import Board from "../../game/layout/board/Board.tsx"
+import SetupBoard from './SetupBoard/SetupBoard.tsx';
 import { Piece } from "../../../interfaces/Piece.tsx";
 
+// הגדרת סוג המאפיינים כראוי
 interface SetupLayoutProps {
-    board: Array<Array<Piece>>;
-    gameData: any;
+  boardSetup: Piece[][]; // לוח משחק כ-matrix של חתיכות
+  setBoardSetup: React.Dispatch<React.SetStateAction<Piece[][]>>; // פונקציה לעדכון הלוח
 }
 
-const SetupLayout: React.FC<SetupLayoutProps> = ({ board, gameData }) => {
-    return (
-        <div className="game-layout">
-            <div className="player-names">
-                <div className="opponent-name">{gameData.playersData.opponent_name}</div>
-            </div>
-
-            <Board
-                board={board}
-                markedCell={gameData.markedCell}
-                markedCellHovered={gameData.markedCellHovered}
-                possibleMoves={gameData.possibleMoves}
-                socketRef={gameData.socketRef}
-                numberOfPlayer={gameData.numberOfPlayer}
-            />
-
-            <div className="player-names">
-                <div className="your-name">{gameData.playersData.your_name}</div>
-            </div>
-
-        </div>
-    );
+const SetupLayout: React.FC<SetupLayoutProps> = ({ boardSetup, setBoardSetup }) => {
+  return (
+    <div className="game-layout">
+      <SetupBoard boardSetup={boardSetup} setBoardSetup={setBoardSetup} />
+    </div>
+  );
 };
 
 export default SetupLayout;

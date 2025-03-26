@@ -1,0 +1,36 @@
+.SetupCell {
+    background-color: #ab9b0d;
+    width: 50px;
+    height: 50px;
+    border: 1.5px solid #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.SetupCell.hoverable:hover {
+    background-color: lightblue;
+    /* צבע רקע בעת ריחוף */
+    cursor: pointer;
+}
+
+.SetupCell.selected {
+    background-color: rgba(0, 0, 255, 0.6);
+    /* רקע כחול כהה כאשר התא נבחר */
+}
+
+/* אם התא גם נבחר וגם במצב hover, ישמור על צבע הבחירה */
+.SetupCell.selected.hoverable:hover {
+    background-color: rgba(0, 0, 255, 0.6);
+    /* רקע כחול כהה כאשר התא נבחר */
+}
+
+@media (max-width: 768px) {
+    .cell {
+        width: 30px;
+        height: 30px;
+        border: 0.9px solid #000000;
+    }
+}

@@ -23,7 +23,7 @@ export default function Game() {
     return (
         <div className="game-container">
             <GameHeaders userName={userData?.user_name} />
-            <GameControls gameData={gameData} />
+            <GameControls gameData={gameData} userData={userData}/>
             {gameData.isSearching && <SearchingIndicator />}
             <GameLayout board={board} gameData={gameData} />
         </div>

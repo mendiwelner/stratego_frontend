@@ -8,13 +8,15 @@ import "./GameControls.css";
 
 interface GameControlsProps {
     gameData: any;
+    userData: any;
 }
 
-const GameControls: React.FC<GameControlsProps> = ({ gameData }) => {
+const GameControls: React.FC<GameControlsProps> = ({ gameData, userData }) => {
+    
     return (
         <div className="game-controls">
             <div className="left-section">
-                <SetupButton logout={gameData.logout} />
+                <SetupButton userData={userData} />
             </div>
             <div className="center-section">
                 <ConnectButton connectToGame={gameData.connectToGame} />

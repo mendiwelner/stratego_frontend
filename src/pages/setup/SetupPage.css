@@ -1,0 +1,27 @@
+.back-button, .save-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.back-button {
+    background-color: #af6600;
+    color: #ffffff;
+}
+
+.back-button:hover {
+    background-color: #c98d3a;
+    color: #ffffff;
+}
+
+.save-button {
+    background-color: #22819e;
+    color: white;
+}
+
+.save-button:hover {
+    background-color: #52b6d4;
+    color: white;
+}
+

@@ -10,7 +10,6 @@ export function handleBoardUpdate(
 ) {
     if (data.board) {
         setBoard(data.board);
-        console.log(data.board);
     }
     if (data.players_data) {
         setPlayersData({

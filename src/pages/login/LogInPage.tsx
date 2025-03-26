@@ -30,7 +30,6 @@ const Login = () => {
       }
 
       const data = await response.json();
-      console.log(data);
       sessionStorage.setItem("access_token", data.token.access_token);
       setError("");
       navigate("/game", { state: { data } });

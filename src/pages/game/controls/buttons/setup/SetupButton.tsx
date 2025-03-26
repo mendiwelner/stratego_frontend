@@ -3,14 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import "./SetupButton.css";  
 
 interface SetupButtonProps {
-    logout: () => void;
+    userData: any;
 }
 
-const SetupButton: React.FC<SetupButtonProps> = ({ logout }) => {
+const SetupButton: React.FC<SetupButtonProps> = ({ userData }) => {
     const navigate = useNavigate();
-
     const handleSetUp = () => {
-        navigate('/setup');
+        navigate("/setup", { state: { userData } });
     };
 
     return (

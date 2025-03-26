@@ -31,10 +31,8 @@ const SignUpPage = () => {
       );
   
       const data = await response.json();
-      console.log(data);
       if (response.ok) {
         sessionStorage.setItem("access_token", data.token.access_token);
-        console.log(data);
         setSuccessMessage("Registration was successful!");
         setTimeout(() => {
           navigate("/game", { state: { data } });
