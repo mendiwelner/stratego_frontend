@@ -62,7 +62,9 @@ export function useGameSocket(setBoard: React.Dispatch<React.SetStateAction<Arra
         };
 
         socketRef.current.onclose = () => {
-            //handleDisconnectFromGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, setPlayersData, setIsInGame, setLastMove, userData.board_setup, false); 
+            setTimeout(() => {
+                handleGameOver("draw", "server_disconnected");
+            }, 1400);
             console.log("🔴 WebSocket connection closed!");
         };
 

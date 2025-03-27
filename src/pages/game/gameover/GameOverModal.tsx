@@ -31,6 +31,8 @@ const GameOverModal: React.FC<GameOverModalProps> = ({ setShowGameOver, showGame
         } else if (showGameOver.result === "draw") {
             if (showGameOver.reason === "no_moved_pieces") {
                 return "it's a draw because you both have no moved pieces";
+            } else if (showGameOver.reason === "server_disconnected") {
+                return "it's a draw because the server is disconnected";
             }
         }
     }
