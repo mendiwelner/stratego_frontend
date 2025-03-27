@@ -10,6 +10,7 @@ import { handlePieceCaptured } from "./handleInputOperations/HandlePieceCaptured
 import { Piece } from "../../interfaces/Piece.tsx";
 import { CellInterface } from "../../interfaces/Cell.tsx";
 import { PlayersData } from "../../interfaces/PlayersData.tsx";
+import { useEffect } from 'react';
 
 export function handleConnectToGame(
     socketRef: React.MutableRefObject<WebSocket | null>,
@@ -23,6 +24,7 @@ export function handleConnectToGame(
     setPlayersData: React.Dispatch<React.SetStateAction<PlayersData>>,
     setIsSearching: React.Dispatch<React.SetStateAction<boolean>>,
     setIsInGame: React.Dispatch<React.SetStateAction<boolean>>,
+    handleGameOver: any,
     makeMove: any
 ) {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
@@ -36,16 +38,8 @@ export function handleConnectToGame(
     setIsSearching(true);
     setIsInGame(true);
 
-    const connectionTimeout = setTimeout(() => {
-        if (socketRef.current?.readyState !== WebSocket.OPEN) {
-            console.log("Failed to connect: Server unreachable.");
-            socketRef.current?.close();
-            socketRef.current = null;
-        }
-    }, 5000);
 
     socketRef.current.onopen = () => {
-        clearTimeout(connectionTimeout);
         console.log("Connected to game");
     };
 
@@ -100,8 +94,10 @@ export function handleConnectToGame(
                     break;
 
                 case "endgame":
-                    console.log(data);
-                    break;
+                    setTimeout(() => {
+                        handleGameOver(data.result, data.reason);
+                    }, 1400);
+                    break
 
                 default:
                     console.log("Unknown message type:", data.type);
@@ -113,7 +109,6 @@ export function handleConnectToGame(
     };
 
     socketRef.current.onclose = () => {
-        clearTimeout(connectionTimeout);
         setBoard(Array(10).fill(null).map(() => Array(10).fill({ number_of_player: 0, value: "" })));
         setMarkedCell(null);
         setPossibleMoves([]);
@@ -121,7 +116,6 @@ export function handleConnectToGame(
     };
 
     socketRef.current.onerror = () => {
-        clearTimeout(connectionTimeout);
         console.log("Error: WebSocket connection failed.");
     };
 }

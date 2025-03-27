@@ -6,7 +6,7 @@ import { CellInterface } from "../interfaces/Cell.tsx";
 import { PlayersData } from "../interfaces/PlayersData.tsx";
 import { GameData } from "../interfaces/GameData.tsx";
 
-export function useGameSocket(setBoard: React.Dispatch<React.SetStateAction<Array<Array<Piece>>>>, userData: any, makeMove: any, setLastMove: any): GameData {
+export function useGameSocket(setBoard: React.Dispatch<React.SetStateAction<Array<Array<Piece>>>>, userData: any, makeMove: any, setLastMove: any, handleGameOver: any): GameData {
     const [markedCell, setMarkedCell] = useState<CellInterface | null>(null);
     const [markedCellHovered, setMarkedCellHovered] = useState<CellInterface | null>(null);
     const [possibleMoves, setPossibleMoves] = useState<Array<CellInterface>>([]);
@@ -39,7 +39,7 @@ export function useGameSocket(setBoard: React.Dispatch<React.SetStateAction<Arra
     };
 
     const connectToGame = () => {
-        handleConnectToGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, disconnectFromGame, setPlayersData, setIsSearching, setIsInGame, makeMove);
+        handleConnectToGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, disconnectFromGame, setPlayersData, setIsSearching, setIsInGame, handleGameOver, makeMove);
     };
 
     const disconnectFromGame = () => {
@@ -62,7 +62,7 @@ export function useGameSocket(setBoard: React.Dispatch<React.SetStateAction<Arra
         };
 
         socketRef.current.onclose = () => {
-            handleDisconnectFromGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, setPlayersData, setIsInGame, setLastMove, userData.board_setup, false); 
+            //handleDisconnectFromGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, setPlayersData, setIsInGame, setLastMove, userData.board_setup, false); 
             console.log("🔴 WebSocket connection closed!");
         };
 
@@ -95,4 +95,4 @@ export function useGameSocket(setBoard: React.Dispatch<React.SetStateAction<Arra
         isInGame,
         logout
     };
-}
+} 
