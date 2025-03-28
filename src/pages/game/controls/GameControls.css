@@ -20,7 +20,7 @@
 .right-section {
     flex: 0 0 20%; /* חלק ימני, 20% */
     display: center;
-    justify-content: flex-start; /* לוודא שהכפתור בצד שמאל */
+    justify-content: center; /* לוודא שהכפתור בצד שמאל */
 }
 
 

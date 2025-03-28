@@ -3,17 +3,18 @@ import "./GameOverModal.css";
 import { GameData } from "../../../interfaces/GameData";
 
 interface GameOverModalProps {
-    setShowGameOver: any;
-    showGameOver: any;
-    gameData: GameData;
+    setShowGameOver: React.Dispatch<React.SetStateAction<{ show: boolean, result: string | null, reason: string | null, rating_change: number | null }>>;
+    showGameOver: { show: boolean, result: string | null, reason: string | null, rating_change: number | null };
+    gameData: GameData;  
 }
+
 
 const GameOverModal: React.FC<GameOverModalProps> = ({ setShowGameOver, showGameOver, gameData }) => {
     const handleClick = () => {
-        setShowGameOver({ show: false, result: null, reason: null });
+        setShowGameOver({ show: false, result: null, reason: null, rating_change: null });
         gameData.disconnectFromGame();
     };
-    function message1() {
+    function resultMessage() {
         if (showGameOver.result === "winner") {
             if (showGameOver.reason === "leaving") {
                 return "🎉 you won because the opponent leave the game 🎉";
@@ -36,11 +37,15 @@ const GameOverModal: React.FC<GameOverModalProps> = ({ setShowGameOver, showGame
             }
         }
     }
+    function ratingMessage() {
+        return "your rating changed in " + showGameOver.rating_change + " points"
+    }
     
     return (
         <div className="game-over-overlay">
             <div className="game-over-modal">
-                <h2>{message1()}</h2>
+                <h2>{resultMessage()}</h2>
+                <h2>{ratingMessage()}</h2>
                 <button onClick={() => handleClick()}>close</button>
             </div>
         </div>

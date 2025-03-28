@@ -1,14 +1,15 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
+import { MakeMoveData } from "../../interfaces/MakeMoveData";
 
 interface GameContextType {
-    lastMove: any;
-    setLastMove: (move: any) => void;
+    lastMove: MakeMoveData | null;
+    setLastMove: (move: MakeMoveData) => void;
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
 
 export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [lastMove, setLastMove] = useState<any>(null);
+    const [lastMove, setLastMove] = useState<MakeMoveData | null>(null);
 
     const contextValue = React.useMemo(() => ({ lastMove, setLastMove }), [lastMove]);
 

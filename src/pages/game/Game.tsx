@@ -9,25 +9,27 @@ import GameControls from "./controls/GameControls.tsx";
 import GameLayout from "./layout/GameLayout.tsx";
 import { useGame } from "./GameContext";
 import GameOverModal from "./gameover/GameOverModal.tsx"; 
+import { UserData } from "../../interfaces/UserData.tsx";
+import { MakeMoveData } from "../../interfaces/MakeMoveData.tsx";
 
 export default function Game() {
     const [board, setBoard] = useState<Array<Array<Piece>>>(Array(10).fill(null).map(() => Array(10).fill({ number_of_player: 0, value: "" })));
-    const userData = useLocation().state?.data;
+    const userData: UserData = useLocation().state?.data;
     const { setLastMove } = useGame(); 
-    const [showGameOver, setShowGameOver] = useState<{ show: boolean, result: string | null, reason: string | null }>({ show: false, result: null, reason: null });
+    const [showGameOver, setShowGameOver] = useState<{ show: boolean, result: string | null, reason: string | null, rating_change: number | null }>({ show: false, result: null, reason: null, rating_change: null });
     const prevShowGameOverRef = useRef(showGameOver);
 
     useEffect(() => {
         prevShowGameOverRef.current = showGameOver;
     }, [showGameOver]);
 
-    const makeMove = (data: any) => {
+    const makeMove = (data: MakeMoveData) => {
         setLastMove(data);
     };
 
-    const handleGameOver = (result: string, reason: string) => {
+    const handleGameOver = (result: string, reason: string, rating_change: number) => {
         if (!prevShowGameOverRef.current.show) {
-            setShowGameOver({ show: true, result, reason });
+            setShowGameOver({ show: true, result, reason, rating_change });
         }
     };
 
@@ -41,7 +43,7 @@ export default function Game() {
 
     return (
         <div className="game-container">
-            <GameHeaders userName={userData?.user_name} />
+            <GameHeaders userData={userData} />
             <GameControls gameData={gameData} userData={userData} />
             {gameData.isSearching && <SearchingIndicator />}
             <GameLayout board={board} gameData={gameData} />

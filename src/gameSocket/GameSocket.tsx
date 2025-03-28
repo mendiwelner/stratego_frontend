@@ -5,8 +5,16 @@ import { Piece } from "../interfaces/Piece.tsx";
 import { CellInterface } from "../interfaces/Cell.tsx";
 import { PlayersData } from "../interfaces/PlayersData.tsx";
 import { GameData } from "../interfaces/GameData.tsx";
+import { UserData } from "../interfaces/UserData.tsx";
+import { MakeMoveData } from "../interfaces/MakeMoveData.tsx";
 
-export function useGameSocket(setBoard: React.Dispatch<React.SetStateAction<Array<Array<Piece>>>>, userData: any, makeMove: any, setLastMove: any, handleGameOver: any): GameData {
+export function useGameSocket(
+    setBoard: React.Dispatch<React.SetStateAction<Array<Array<Piece>>>>, 
+    userData: UserData, 
+    makeMove: (data: MakeMoveData) => void, 
+    setLastMove: (data: MakeMoveData) => void,  
+    handleGameOver: (result: string, reason: string, rating_change: number) => void
+): GameData {
     const [markedCell, setMarkedCell] = useState<CellInterface | null>(null);
     const [markedCellHovered, setMarkedCellHovered] = useState<CellInterface | null>(null);
     const [possibleMoves, setPossibleMoves] = useState<Array<CellInterface>>([]);
@@ -63,8 +71,8 @@ export function useGameSocket(setBoard: React.Dispatch<React.SetStateAction<Arra
 
         socketRef.current.onclose = () => {
             setTimeout(() => {
-                handleGameOver("draw", "server_disconnected");
-            }, 1400);
+                handleGameOver("draw", "server_disconnected", 0);
+            }, 2000);
             console.log("🔴 WebSocket connection closed!");
         };
 

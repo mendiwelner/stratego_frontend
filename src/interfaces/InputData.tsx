@@ -8,11 +8,12 @@ export interface InputData {
     board?: Piece[][];
     cell?: CellInterface;
     possible_moves?: CellInterface[];
-    move?: Move;
+    move: Move;
     piece?: { number_of_player: number; value: string };
     inputMove: Move;
     number_of_player: number;
     players_data: { your_name: string, opponent_name: string };
     result: string;
     reason: string;
+    rating_change: number;
 }

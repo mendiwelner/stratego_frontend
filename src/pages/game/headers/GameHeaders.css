@@ -4,20 +4,51 @@
 }
 
 .left-section {
-    flex: 0 0 20%; /* חלק שמאלי, 20% */
-    display: flex;
-    justify-content: flex-start; /* לוודא שהכפתור בצד שמאל */
+    flex: 0 0 20%;
 }
 
 .center-section {
-    flex: 0 0 60%; /* חלק אמצעי, 60% */
+    flex: 0 0 60%;
     display: flex;
-    justify-content: center; /* למרכז את הכפתורים בתוך החלק */
-    align-items: center; /* למרכז את הכפתורים במאונך */
+    justify-content: center;
+    align-items: center;
 }
 
 .right-section {
-    flex: 0 0 20%; /* חלק ימני, 20% */
-    display: center;
-    justify-content: flex-start; /* לוודא שהכפתור בצד שמאל */
+    flex: 0 0 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center; /* תוודא שכל הטקסט במרכז */
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* מרכז את האווטר והפרטים */
+}
+
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-name {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.user-rating {
+    margin: 0;
+    font-size: 1rem;
+    color: gray;
 }

@@ -14,7 +14,7 @@ const PlayerCircle: React.FC<PlayerCircleProps> = React.memo(({ color, value, ro
     const { lastMove } = useGame();
     const [position, setPosition] = useState({ top: 50, left: 50 });
 
-    const moveCircle = (from_cell: CellInterface, to_cell: CellInterface, attacker_position: CellInterface, move_type: string) => {
+    const moveCircle = (from_cell: CellInterface, to_cell: CellInterface, attacker_position: CellInterface | null, move_type: string) => {
         let deltaRow = to_cell.row - from_cell.row;
         let deltaCol = from_cell.column - to_cell.column;
         if (attacker_position) {

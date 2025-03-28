@@ -11,6 +11,7 @@ import { Piece } from "../../interfaces/Piece.tsx";
 import { CellInterface } from "../../interfaces/Cell.tsx";
 import { PlayersData } from "../../interfaces/PlayersData.tsx";
 import { useEffect } from 'react';
+import { MakeMoveData } from "../../interfaces/MakeMoveData.tsx";
 
 export function handleConnectToGame(
     socketRef: React.MutableRefObject<WebSocket | null>,
@@ -24,8 +25,8 @@ export function handleConnectToGame(
     setPlayersData: React.Dispatch<React.SetStateAction<PlayersData>>,
     setIsSearching: React.Dispatch<React.SetStateAction<boolean>>,
     setIsInGame: React.Dispatch<React.SetStateAction<boolean>>,
-    handleGameOver: any,
-    makeMove: any
+    handleGameOver: (result: string, reason: string, rating_change: number) => void,
+    makeMove: (data: MakeMoveData) => void
 ) {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
         console.log("Already connected to the game!");
@@ -95,7 +96,7 @@ export function handleConnectToGame(
 
                 case "endgame":
                     setTimeout(() => {
-                        handleGameOver(data.result, data.reason);
+                        handleGameOver(data.result, data.reason, data.rating_change);
                     }, 1400);
                     break
 
