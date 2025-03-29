@@ -3,15 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import "./LogoutButton.css";  
 
 interface LogoutButtonProps {
-    logout: () => void;
+    isInGame: boolean;
 }
 
-const LogoutButton: React.FC<LogoutButtonProps> = ({ logout }) => {
+const LogoutButton: React.FC<LogoutButtonProps> = ({ isInGame }) => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        logout();
-        navigate('/');
+        if (isInGame) {
+            const confirmLeave = window.confirm("You have to leave the game first!");
+        } else {
+            navigate('/');
+        }
     };
 
     return (
@@ -20,6 +23,3 @@ const LogoutButton: React.FC<LogoutButtonProps> = ({ logout }) => {
 };
 
 export default LogoutButton;
-
-
-

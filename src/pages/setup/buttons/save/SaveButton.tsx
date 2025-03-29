@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface SaveButtonProps {
   boardSetup: any[];
@@ -6,6 +6,8 @@ interface SaveButtonProps {
 }
 
 const SaveButton: React.FC<SaveButtonProps> = ({ boardSetup, userData }) => {
+  const [message, setMessage] = useState<string | null>(null);
+
   const handleSave = async () => {
     if (userData) {
       userData.board_setup = [...boardSetup];
@@ -14,30 +16,33 @@ const SaveButton: React.FC<SaveButtonProps> = ({ boardSetup, userData }) => {
     console.log("Board setup saved");
     const token = sessionStorage.getItem("access_token");
     const url = `${process.env.REACT_APP_API_HTTP_URL}/setup/update_setup/${token}`;
-    const data = {
-      board_setup: boardSetup,
-    };
+    const data = { board_setup: boardSetup };
 
     try {
       const response = await fetch(url, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
       if (response.ok) {
-        const result = await response.json();
+        setMessage("✅ Setup updated successfully!");
+        setTimeout(() => setMessage(null), 3000);
       } else {
-        console.error('Failed to update setup:', response.statusText);
+        setMessage("❌ Failed to update setup.");
       }
     } catch (error) {
       console.error('Error during request:', error);
+      setMessage("❌ Error updating setup.");
     }
   };
 
-  return <button onClick={handleSave} className="save-button">Save Changes</button>;
+  return (
+    <>
+      <button onClick={handleSave} className="save-button">Save Changes</button>
+      {message && <div className="message-box">{message}</div>}
+    </>
+  );
 };
 
 export default SaveButton;

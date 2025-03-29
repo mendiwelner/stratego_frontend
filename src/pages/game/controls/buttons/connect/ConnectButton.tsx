@@ -6,7 +6,7 @@ interface ConnectButtonProps {
 }
 
 const ConnectButton: React.FC<ConnectButtonProps> = ({ connectToGame }) => {
-    return <button onClick={connectToGame}>Connect to Game</button>;
+    return <button onClick={connectToGame}>start a Game</button>;
 };
 
 export default ConnectButton;

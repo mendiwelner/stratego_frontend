@@ -10,7 +10,6 @@ import { handlePieceCaptured } from "./handleInputOperations/HandlePieceCaptured
 import { Piece } from "../../interfaces/Piece.tsx";
 import { CellInterface } from "../../interfaces/Cell.tsx";
 import { PlayersData } from "../../interfaces/PlayersData.tsx";
-import { useEffect } from 'react';
 import { MakeMoveData } from "../../interfaces/MakeMoveData.tsx";
 
 export function handleConnectToGame(

@@ -13,6 +13,7 @@ export interface GameData {
     isSearching: boolean;
     isInGame: boolean;
     connectToGame: () => void;
+    leaveTheGame: () => void;
     disconnectFromGame: () => void;
     logout: () => void;
 }

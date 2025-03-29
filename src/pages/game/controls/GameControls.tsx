@@ -20,11 +20,11 @@ const GameControls: React.FC<GameControlsProps> = ({ gameData, userData }) => {
                 {!gameData.isInGame && <SetupButton userData={userData} />}
             </div>
             <div className="center-section">
-                <ConnectButton connectToGame={gameData.connectToGame} />
-                <DisconnectButton disconnectFromGame={gameData.disconnectFromGame} />
+                {!gameData.isInGame && <ConnectButton connectToGame={gameData.connectToGame} />}
+                {gameData.isInGame && <DisconnectButton disconnectFromGame={gameData.leaveTheGame} isSearching={gameData.isSearching}/>}
             </div>
             <div className="right-section">
-                <LogoutButton logout={gameData.logout} />
+                <LogoutButton isInGame={gameData.isInGame} />
             </div>
         </div>
     );

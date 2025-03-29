@@ -6,49 +6,64 @@ import { CellInterface } from "../interfaces/Cell.tsx";
 import { PlayersData } from "../interfaces/PlayersData.tsx";
 import { GameData } from "../interfaces/GameData.tsx";
 import { UserData } from "../interfaces/UserData.tsx";
-import { MakeMoveData } from "../interfaces/MakeMoveData.tsx";
+import { GameOperationsSend } from "../interfaces/GameOperationsSend.tsx";
 
-export function useGameSocket(
-    setBoard: React.Dispatch<React.SetStateAction<Array<Array<Piece>>>>, 
-    userData: UserData, 
-    makeMove: (data: MakeMoveData) => void, 
-    setLastMove: (data: MakeMoveData) => void,  
-    handleGameOver: (result: string, reason: string, rating_change: number) => void
-): GameData {
+export function useGameSocket(userData: UserData, gameOperations: GameOperationsSend): GameData {
+    const { setBoard, makeMove, setLastMove, handleGameOver } = gameOperations;
     const [markedCell, setMarkedCell] = useState<CellInterface | null>(null);
     const [markedCellHovered, setMarkedCellHovered] = useState<CellInterface | null>(null);
     const [possibleMoves, setPossibleMoves] = useState<Array<CellInterface>>([]);
     const [graveyard, setGraveyard] = useState<Piece[]>([]);
     const [numberOfPlayer, setNumberOfPlayer] = useState<number>(0);
     const socketRef = useRef<WebSocket | null>(null);
-    const [playersData, setPlayersData] = useState<PlayersData>({
-        your_name: "",
-        opponent_name: ""
-    });
+    const [playersData, setPlayersData] = useState<PlayersData>({ your_name: "", opponent_name: "" });
     const [isSearching, setIsSearching] = useState<boolean>(false);
     const [isInGame, setIsInGame] = useState<boolean>(false);
 
+    // useRef to track the value of isSearching
+    const isSearchingRef = useRef(isSearching);
+
+    // Update the ref whenever isSearching changes
+    useEffect(() => {
+        isSearchingRef.current = isSearching;
+    }, [isSearching]);
+
     const logout = () => {
-        setPlayersData({
-            your_name: "",
-            opponent_name: ""
-        });
-        setBoard(Array(10).fill(null).map(() => Array(10).fill({ number_of_player: 0, value: "" })));
-        setGraveyard([]);
-        setMarkedCell(null);
-        setMarkedCellHovered(null);
-        setPossibleMoves([]);
-        setNumberOfPlayer(0);
-        setIsSearching(false);
-        setIsInGame(false);
-        disconnectFromGame();
-        
+        leaveTheGame();
         console.log("User logged out.");
     };
 
+    useEffect(() => {
+        console.log("isSearching changed:", isSearching);
+    }, [isSearching]);
+
     const connectToGame = () => {
-        handleConnectToGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, disconnectFromGame, setPlayersData, setIsSearching, setIsInGame, handleGameOver, makeMove);
+        handleConnectToGame(
+            socketRef,
+            setBoard,
+            setNumberOfPlayer,
+            setMarkedCell,
+            setMarkedCellHovered,
+            setPossibleMoves,
+            setGraveyard,
+            disconnectFromGame,
+            setPlayersData,
+            setIsSearching,
+            setIsInGame,
+            handleGameOver,
+            makeMove
+        );
     };
+
+    const leaveTheGame = () => {
+        if (isSearchingRef.current) { 
+            setIsSearching(false);
+            handleDisconnectFromGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, setPlayersData, setIsInGame, setLastMove, userData.board_setup, true);
+        } else {
+            console.log("l");
+            socketRef.current?.send(JSON.stringify({action: "disconnect"}));
+        }
+    }
 
     const disconnectFromGame = () => {
         if (socketRef.current) {
@@ -57,22 +72,29 @@ export function useGameSocket(
             socketRef.current.onerror = null;
             socketRef.current.close();
         }
-        handleDisconnectFromGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, setPlayersData, setIsInGame, setLastMove, userData.board_setup, true); 
+        handleDisconnectFromGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, setPlayersData, setIsInGame, setLastMove, userData.board_setup, true);
         socketRef.current = null;
         setIsSearching(false);
     };
 
     useEffect(() => {
         if (!socketRef.current) return;
-
         socketRef.current.onopen = () => {
             console.log("✅ WebSocket connected!");
         };
 
-        socketRef.current.onclose = () => {
-            setTimeout(() => {
-                handleGameOver("draw", "server_disconnected", 0);
-            }, 2000);
+        socketRef.current.onclose = (event) => {
+            console.log(isSearchingRef.current);  // This should now log the updated value of isSearching
+            if (event.code == 1012) {
+                if (isSearchingRef.current) {
+                    leaveTheGame();
+                    alert("the server can't get the connection");
+                } else {
+                    setTimeout(() => {
+                        handleGameOver("draw", "server_disconnected", 0);
+                    }, 1500);
+                }
+            }
             console.log("🔴 WebSocket connection closed!");
         };
 
@@ -98,6 +120,7 @@ export function useGameSocket(
         markedCellHovered,
         possibleMoves,
         connectToGame,
+        leaveTheGame,
         disconnectFromGame,
         socketRef,
         playersData,
@@ -105,4 +128,4 @@ export function useGameSocket(
         isInGame,
         logout
     };
-} 
+}
