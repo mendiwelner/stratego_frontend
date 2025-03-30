@@ -54,7 +54,6 @@ export function useGameSocket(userData: UserData, gameOperations: GameOperations
             setIsSearching(false);
             handleDisconnectFromGame(socketRef, setBoard, setNumberOfPlayer, setMarkedCell, setMarkedCellHovered, setPossibleMoves, setGraveyard, setPlayersData, setIsInGame, setLastMove, userData.board_setup, true);
         } else {
-            console.log("l");
             socketRef.current?.send(JSON.stringify({action: "disconnect"}));
         }
     }
@@ -78,7 +77,6 @@ export function useGameSocket(userData: UserData, gameOperations: GameOperations
         };
 
         socketRef.current.onclose = (event) => {
-            console.log(isSearchingRef.current);  // This should now log the updated value of isSearching
             if (event.code == 1012) {
                 if (isSearchingRef.current) {
                     leaveTheGame();
