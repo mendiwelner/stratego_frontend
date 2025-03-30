@@ -1,7 +1,19 @@
+/* PlayerCircle.css */
+:root {
+    --color-0: #aeac12;  /* צבע 0 - אדום */
+    --color-1: #2385f5;  /* צבע 1 - כחול */
+    --color-2: #f22c2c;  /* צבע 2 - אדום בהיר */
+    --color-3: #27b82c;  /* צבע 3 - ירוק */
+}
+
+.player-circle {
+    background-color: var(--color-1);  /* צבע כחול ברירת מחדל */
+}
+
 .player-circle {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    border-radius: 20%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -9,13 +21,37 @@
     font-weight: bold;
     font-size: 20px;
     text-align: center;
+    position: relative;
 }
 
+.circle-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.circle-image {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 .circle-text {
     user-select: none;
+    position: absolute;
+    top: 5px;    /* מיקום המספר במרכז העיגול כך שהוא יסתיר את התמונה */
+    left: -12px;
+    transform: translateX(-50%);  /* מיקום המספר במרכז האופקי */
+    font-size: 14px;   /* גודל טקסט קטן יותר */
+    z-index: 2;       /* שימור הסדר כך שהמספר יהיה מעל לתמונה */
 }
-
 
 @media (max-width: 768px) {
     .player-circle {
@@ -29,5 +65,15 @@
         font-weight: bold;
         font-size: 10px;
         text-align: center;
+    }
+
+    .circle-image {
+        width: 15px;
+        height: 15px;
+    }
+
+    .circle-text {
+        font-size: 8px;
+        top: -4px;    /* הזזנו את המספר עוד למעלה במסך קטן */
     }
 }

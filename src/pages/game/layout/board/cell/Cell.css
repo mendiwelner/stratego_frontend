@@ -1,37 +1,38 @@
 /* Cell.css */
 .cell {
-    background-color: #ab9b0d;
+    background-color: #FFEB3B; /* צהוב בהיר, צבע רגיל למשבצת */
     width: 50px;
     height: 50px;
-    border: 1.5px solid #000000;
+    border: 1.5px solid #000000; /* גבול שחור לעומת צבע הרקע */
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     position: relative;
+    transition: background-color 0.3s ease;
 }
 
 .cell.forbidden {
-    background-color: rgb(25, 74, 189);
+    background-color: #1976D2; /* כחול כהה למשבצת אסורה */
     cursor: not-allowed;
 }
 
 .cell.hover-marked {
-    background-color: rgb(244, 240, 187) !important;
+    background-color: #FFEB3B !important; /* צהוב קרמי רך למשבצת כשהרפרוף עליה */
 }
 
 .cell.marked {
-    background-color: yellow !important;
+    background-color: #F57C00 !important; /* צהוב כהה למשבצת מסומנת */
 }
 
 .possible-move {
-    background-color: rgba(0, 255, 0, 0.3);
+    background-color: rgba(0, 200, 0, 0.4); /* ירוק בהיר ועמום למהלך אפשרי */
 }
 
 @media (max-width: 768px) {
     .cell {
         width: 30px;
         height: 30px;
-        border: 0.9px solid #000000;
+        border: 1px solid #000000; /* גבול יותר דק במסכים קטנים */
     }
 }

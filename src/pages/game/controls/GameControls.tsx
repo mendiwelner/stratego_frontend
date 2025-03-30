@@ -24,7 +24,7 @@ const GameControls: React.FC<GameControlsProps> = ({ gameData, userData }) => {
                 {gameData.isInGame && <DisconnectButton disconnectFromGame={gameData.leaveTheGame} isSearching={gameData.isSearching}/>}
             </div>
             <div className="right-section">
-                <LogoutButton isInGame={gameData.isInGame} />
+                <LogoutButton isInGame={gameData.isInGame} userName={userData.user_name}/>
             </div>
         </div>
     );

@@ -20,10 +20,8 @@ export function useGameSocket(userData: UserData, gameOperations: GameOperations
     const [isSearching, setIsSearching] = useState<boolean>(false);
     const [isInGame, setIsInGame] = useState<boolean>(false);
 
-    // useRef to track the value of isSearching
     const isSearchingRef = useRef(isSearching);
 
-    // Update the ref whenever isSearching changes
     useEffect(() => {
         isSearchingRef.current = isSearching;
     }, [isSearching]);
@@ -32,10 +30,6 @@ export function useGameSocket(userData: UserData, gameOperations: GameOperations
         leaveTheGame();
         console.log("User logged out.");
     };
-
-    useEffect(() => {
-        console.log("isSearching changed:", isSearching);
-    }, [isSearching]);
 
     const connectToGame = () => {
         handleConnectToGame(

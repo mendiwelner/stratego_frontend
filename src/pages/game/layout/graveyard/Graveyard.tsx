@@ -52,6 +52,7 @@ const Graveyard: React.FC<GraveyardProps> = ({ numberOfPlayer, graveyard }) => {
                                 value={piece}
                                 row={-1}
                                 column={-1}
+                                isHoverMarked={false}
                             />
                             <div className="piece-number">
                                 {countPiecesByValueAndPlayer(graveyard, index, numberOfPlayer, false)}
@@ -67,6 +68,7 @@ const Graveyard: React.FC<GraveyardProps> = ({ numberOfPlayer, graveyard }) => {
                                 value={piece}
                                 row={-1}
                                 column={-1}
+                                isHoverMarked={false}
                             />
                             <div className="piece-number">
                                 {countPiecesByValueAndPlayer(graveyard, index, numberOfPlayer, true)}

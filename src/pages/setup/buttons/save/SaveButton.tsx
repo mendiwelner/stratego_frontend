@@ -13,7 +13,6 @@ const SaveButton: React.FC<SaveButtonProps> = ({ boardSetup, userData }) => {
       userData.board_setup = [...boardSetup];
     }
 
-    console.log("Board setup saved");
     const token = sessionStorage.getItem("access_token");
     const url = `${process.env.REACT_APP_API_HTTP_URL}/setup/update_setup/${token}`;
     const data = { board_setup: boardSetup };
@@ -27,6 +26,7 @@ const SaveButton: React.FC<SaveButtonProps> = ({ boardSetup, userData }) => {
 
       if (response.ok) {
         setMessage("✅ Setup updated successfully!");
+        console.log("Board setup saved");
         setTimeout(() => setMessage(null), 3000);
       } else {
         setMessage("❌ Failed to update setup.");

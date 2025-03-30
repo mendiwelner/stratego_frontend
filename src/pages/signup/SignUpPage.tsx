@@ -18,7 +18,7 @@ const SignUpPage = () => {
   
     setError("");
     setSuccessMessage("");
-    const url = `${process.env.REACT_APP_API_HTTP_URL}/users/?name=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
+    const url = `${process.env.REACT_APP_API_HTTP_URL}/users/create_new_user/?name=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
     try {
       const response = await fetch(
         url,

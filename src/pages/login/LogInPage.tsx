@@ -24,12 +24,13 @@ const Login = () => {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({ username, password }).toString(),
       });
-
       if (!response.ok) {
         throw new Error("invalid user name or password");
       }
-
       const data = await response.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
       sessionStorage.setItem("access_token", data.token.access_token);
       setError("");
       navigate("/game", { state: { data } });

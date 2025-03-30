@@ -8,9 +8,10 @@ interface PlayerCircleProps {
     value: string;
     row: number;
     column: number;
+    isHoverMarked: boolean;
 }
 
-const PlayerCircle: React.FC<PlayerCircleProps> = React.memo(({ color, value, row, column }) => {
+const PlayerCircle: React.FC<PlayerCircleProps> = React.memo(({ color, value, row, column, isHoverMarked }) => {
     const { lastMove } = useGame();
     const [position, setPosition] = useState({ top: 50, left: 50 });
 
@@ -26,8 +27,7 @@ const PlayerCircle: React.FC<PlayerCircleProps> = React.memo(({ color, value, ro
                 top: prevPosition.top + deltaRow * 100,
                 left: prevPosition.left + deltaCol * 100,
             }));
-        }
-        else {
+        } else {
             setPosition(prevPosition => ({
                 top: prevPosition.top + deltaRow * 20,
                 left: prevPosition.left + deltaCol * 20,
@@ -46,16 +46,28 @@ const PlayerCircle: React.FC<PlayerCircleProps> = React.memo(({ color, value, ro
         }
     }, [lastMove]);
 
-    let backgroundColor;
-    if (color === 0) {
-        backgroundColor = '#D27C28';
-    } else if (color === 1) {
-        backgroundColor = 'blue';
-    } else if (color === 2) {
-        backgroundColor = 'red';
-    } else if (color === 3) {
-        backgroundColor = 'green';
-    }
+    const imageDictionary: { [key: string]: string } = {
+        'b': '/images/stratego-bomb.svg',
+        'f': '/images/stratego-flag.svg',
+        '1': '/images/stratego-spy.svg',
+        '2': '/images/stratego-scout.svg',
+        '3': '/images/stratego-miner.svg',
+        '4': '/images/stratego-sergeant.svg',
+        '5': '/images/stratego-lieutenant.svg',
+        '6': '/images/stratego-captain.svg',
+        '7': '/images/stratego-major.svg',
+        '8': '/images/stratego-colonel.svg',
+        '9': '/images/stratego-general.svg',
+        '10': '/images/stratego-marshal.svg'
+    };
+
+    const imageSrc = imageDictionary[value];
+
+    const backgroundColor = color === 0 ? 'var(--color-0)' :
+                            color === 1 ? 'var(--color-1)' :
+                            color === 2 ? 'var(--color-2)' : 'var(--color-3)';
+
+    const scaleValue = isHoverMarked ? 1.08 : 1; // הגדלה ב-30% כאשר יש hover
 
     return (
         <div className="player-circle"
@@ -64,13 +76,28 @@ const PlayerCircle: React.FC<PlayerCircleProps> = React.memo(({ color, value, ro
                 position: 'absolute',
                 top: `${position.top}%`,
                 left: `${position.left}%`,
-                transform: 'translate(-50%, -50%)',
-                transition: 'top 0.4s ease, left 0.4s ease',
+                transform: `translate(-50%, -50%) scale(${scaleValue})`, // כל הערכים באותו transform
+                transition: 'top 0.4s ease, left 0.4s ease, transform 0.3s ease',
                 zIndex: 1,
+                width: `${38 * scaleValue}px`,  // הגדלת גודל העיגול
+                height: `${38 * scaleValue}px`, // הגדלת גובה העיגול
             }}>
-            {value && <span className="circle-text">{value}</span>}
+            <div className="circle-content"
+                style={{
+                    transition: 'transform 0.3s ease',
+                    transform: `scale(${scaleValue})`, // הגדלת התמונה והמספר
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}>
+                {imageSrc ? (
+                    <img src={imageSrc} alt="player" className="circle-image" />
+                ) : null}
+                <span className="circle-text">{value}</span>
+            </div>
         </div>
     );
+    
 });
 
 export default PlayerCircle;
