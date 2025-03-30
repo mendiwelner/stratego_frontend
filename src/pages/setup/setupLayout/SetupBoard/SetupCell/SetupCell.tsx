@@ -22,7 +22,7 @@ const SetupCell: React.FC<SetupCellProps> = ({ row, column, cell, onCellClick, i
           value={cell.value}
           row={-1}
           column={-1}
-          isHoverMarked={false} />
+          isMarked={false} />
       ) : (
         cell.value && <span>{cell.value}</span>
       )}

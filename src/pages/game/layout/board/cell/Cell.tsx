@@ -76,7 +76,7 @@ const Cell: React.FC<CellProps> = ({ row, column, cell, isForbidden, markedCell,
             onMouseEnter={handleHover}  
         >
             {cell.number_of_player ? (
-                <PlayerCircle color={chooseColor(cell.number_of_player, numberOfPlayer)} value={cell.value} row={row} column={column} isHoverMarked={isHoverMarked}/>
+                <PlayerCircle color={chooseColor(cell.number_of_player, numberOfPlayer)} value={cell.value} row={row} column={column} isMarked={isHoverMarked || isMarked}/>
             ) : (
                 cell.value && <span>{cell.value}</span>
             )}

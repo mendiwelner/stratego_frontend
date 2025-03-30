@@ -8,10 +8,10 @@ interface PlayerCircleProps {
     value: string;
     row: number;
     column: number;
-    isHoverMarked: boolean;
+    isMarked: boolean;
 }
 
-const PlayerCircle: React.FC<PlayerCircleProps> = React.memo(({ color, value, row, column, isHoverMarked }) => {
+const PlayerCircle: React.FC<PlayerCircleProps> = React.memo(({ color, value, row, column, isMarked }) => {
     const { lastMove } = useGame();
     const [position, setPosition] = useState({ top: 50, left: 50 });
 
@@ -67,7 +67,7 @@ const PlayerCircle: React.FC<PlayerCircleProps> = React.memo(({ color, value, ro
                             color === 1 ? 'var(--color-1)' :
                             color === 2 ? 'var(--color-2)' : 'var(--color-3)';
 
-    const scaleValue = isHoverMarked ? 1.08 : 1; // הגדלה ב-30% כאשר יש hover
+    const scaleValue = isMarked ? 1.08 : 1; // הגדלה ב-30% כאשר יש hover
 
     return (
         <div className="player-circle"
