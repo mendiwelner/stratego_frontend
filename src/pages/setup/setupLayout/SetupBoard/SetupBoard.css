@@ -6,15 +6,6 @@
     box-sizing: border-box;
 }
 
-.board {
-    display: grid;
-    grid-template-columns: repeat(10, 50px);
-    grid-template-rows: repeat(10, 50px);
-    gap: 0px;
-    width: 500px;
-    height: 500px;
-}
-
 @media (max-width: 768px) {
     .board {
         grid-template-columns: repeat(10, 30px); /* קטן יותר */

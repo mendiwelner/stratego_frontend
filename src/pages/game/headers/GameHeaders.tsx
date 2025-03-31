@@ -9,11 +9,11 @@ interface GameHeadersProps {
 const GameHeaders: React.FC<GameHeadersProps> = ({ userData }) => {
     return (
         <div className="game-headers">
-            <div className="left-section"></div>
-            <div className="center-section">
+            <div className="headers-left-section"></div>
+            <div className="headers-center-section">
                 <h1>Stratego Game</h1>
             </div>
-            <div className="right-section">
+            <div className="headers-right-section">
                 <div className="user-info">
                     <img 
                         src="/images/player_avatar.png" 

@@ -16,14 +16,14 @@ interface GameControlsProps {
 const GameControls: React.FC<GameControlsProps> = ({ gameData, userData }) => {
     return (
         <div className="game-controls">
-            <div className="left-section">
+            <div className="controls-left-section">
                 {!gameData.isInGame && <SetupButton userData={userData} />}
             </div>
-            <div className="center-section">
+            <div className="controls-center-section">
                 {!gameData.isInGame && <ConnectButton connectToGame={gameData.connectToGame} />}
                 {gameData.isInGame && <DisconnectButton disconnectFromGame={gameData.leaveTheGame} isSearching={gameData.isSearching}/>}
             </div>
-            <div className="right-section">
+            <div className="controls-right-section">
                 <LogoutButton isInGame={gameData.isInGame} userName={userData.user_name}/>
             </div>
         </div>

@@ -12,11 +12,22 @@ const SetupBoard: React.FC<SetupBoardProps> = ({ boardSetup, setBoardSetup }) =>
   const [selectedCell, setSelectedCell] = useState<{ row: number; column: number } | null>(null);
   const boardRef = useRef<HTMLDivElement | null>(null);
 
+  const forbiddenCells = [
+    { row: 4, column: 2 }, { row: 4, column: 3 },
+    { row: 5, column: 2 }, { row: 5, column: 3 },
+    { row: 4, column: 6 }, { row: 4, column: 7 },
+    { row: 5, column: 6 }, { row: 5, column: 7 }
+  ];
+
+  const isCellForbidden = (row: number, column: number): boolean => {
+    return forbiddenCells.some(cell => cell.row === row && cell.column === column);
+  };
+
   const handleCellClick = (row: number, column: number) => {
     if (!boardSetup[row][column].value) {
       setSelectedCell(null);
       return;
-    } 
+    }
     if (!selectedCell) {
       setSelectedCell({ row, column });
     } else {
@@ -62,6 +73,7 @@ const SetupBoard: React.FC<SetupBoardProps> = ({ boardSetup, setBoardSetup }) =>
               cell={cell}
               onCellClick={handleCellClick}
               isSelected={selectedCell?.row === rowIndex && selectedCell?.column === colIndex}
+              isForbidden={isCellForbidden(rowIndex, colIndex)}
             />
           ))
         )}

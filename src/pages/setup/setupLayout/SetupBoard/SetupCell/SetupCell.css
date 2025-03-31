@@ -1,13 +1,14 @@
 .SetupCell {
-    background-color: #e7d211;
-    width: 50px;
-    height: 50px;
-    border: 1.5px solid #000000;
+    background-color: #e7d211; /* צהוב בהיר, צבע רגיל למשבצת */
+    width: 4vw;
+    height: 4vw;
+    border: 0.1vw solid #000000; /* גבול שחור לעומת צבע הרקע */
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     position: relative;
+    transition: background-color 0.3s ease;
 }
 
 .SetupCell.hoverable:hover {
@@ -19,6 +20,11 @@
 .SetupCell.selected {
     background-color: rgba(0, 0, 255, 0.6);
     /* רקע כחול כהה כאשר התא נבחר */
+}
+
+.SetupCell.forbidden {
+    background-color: #1976D2; /* כחול כהה למשבצת אסורה */
+    cursor: not-allowed;
 }
 
 /* אם התא גם נבחר וגם במצב hover, ישמור על צבע הבחירה */

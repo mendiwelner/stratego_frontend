@@ -1,6 +1,6 @@
 import React from 'react';
 import './Board.css';
-import  Cell from "./cell/Cell.tsx";
+import Cell from "./cell/Cell.tsx";
 import { CellInterface } from "../../../../interfaces/Cell.tsx";
 import { Piece } from "../../../../interfaces/Piece.tsx";
 
@@ -27,7 +27,7 @@ const Board: React.FC<BoardProps> = ({ board, markedCell, markedCellHovered, pos
   };
 
   const isPossibleMove = (row: number, column: number): boolean => {
-    if (!possibleMoves) return false; 
+    if (!possibleMoves) return false;
     return possibleMoves.some(move => move.row === row && move.column === column);
   };
 

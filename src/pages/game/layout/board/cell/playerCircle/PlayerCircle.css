@@ -11,15 +11,15 @@
 }
 
 .player-circle {
-    width: 40px;
-    height: 40px;
+    width: 3vw;
+    height: 3vw;
     border-radius: 20%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 0.8vw;
     text-align: center;
     position: relative;
 }
@@ -33,8 +33,8 @@
 }
 
 .circle-image {
-    width: 38px;
-    height: 38px;
+    width: 3.2vw;
+    height: 3.2vw;
     border-radius: 50%;
     object-fit: cover;
     position: absolute;
@@ -46,10 +46,10 @@
 .circle-text {
     user-select: none;
     position: absolute;
-    top: 5px;    /* מיקום המספר במרכז העיגול כך שהוא יסתיר את התמונה */
-    left: -12px;
+    top: 0.3vw;    /* מיקום המספר במרכז העיגול כך שהוא יסתיר את התמונה */
+    left: -1vw;
     transform: translateX(-50%);  /* מיקום המספר במרכז האופקי */
-    font-size: 14px;   /* גודל טקסט קטן יותר */
+    font-size: 1.2vw;   /* גודל טקסט קטן יותר */
     z-index: 2;       /* שימור הסדר כך שהמספר יהיה מעל לתמונה */
 }
 

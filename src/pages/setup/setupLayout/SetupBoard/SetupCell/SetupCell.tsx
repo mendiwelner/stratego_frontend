@@ -8,12 +8,15 @@ interface SetupCellProps {
   cell: { number_of_player: number; value: string };
   onCellClick: (row: number, column: number) => void;
   isSelected: boolean;
+  isForbidden: boolean;
 }
 
-const SetupCell: React.FC<SetupCellProps> = ({ row, column, cell, onCellClick, isSelected }) => {
+const SetupCell: React.FC<SetupCellProps> = ({ row, column, cell, onCellClick, isSelected, isForbidden }) => {
   return (
     <div
-      className={`SetupCell ${cell.value ? "hoverable" : ""} ${isSelected && cell.value ? "selected" : ""}`}
+      className={`SetupCell ${cell.value ? "hoverable" : ""} 
+      ${isSelected && cell.value ? "selected" : ""}
+      ${isForbidden ? 'forbidden' : ''}`}
       onClick={() => onCellClick(row, column)}
     >
       {cell.number_of_player ? (

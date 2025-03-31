@@ -1,7 +1,7 @@
-.back-button, .save-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    margin: 10px;
+.back-button, .save-button, .flip-button, .random-setup-button {
+    padding: 1vw 2vw;
+    font-size: 1.6vw;
+    margin: 1vw;
     cursor: pointer;
 }
 

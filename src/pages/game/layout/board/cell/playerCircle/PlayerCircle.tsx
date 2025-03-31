@@ -79,8 +79,8 @@ const PlayerCircle: React.FC<PlayerCircleProps> = React.memo(({ color, value, ro
                 transform: `translate(-50%, -50%) scale(${scaleValue})`, // כל הערכים באותו transform
                 transition: 'top 0.4s ease, left 0.4s ease, transform 0.3s ease',
                 zIndex: 1,
-                width: `${38 * scaleValue}px`,  // הגדלת גודל העיגול
-                height: `${38 * scaleValue}px`, // הגדלת גובה העיגול
+                width: `${3.2 * scaleValue}vw`,  // הגדלת גודל העיגול
+                height: `${3.2 * scaleValue}vw`, // הגדלת גובה העיגול
             }}>
             <div className="circle-content"
                 style={{

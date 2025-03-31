@@ -4,24 +4,24 @@
     justify-content: center;
     flex-direction: column;
     position: fixed; /* נוודא שזה מוצג על המסך */
-    top: 37%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 1.5rem;
+    font-size: 1.5vw;
     color: #333;
     background-color: rgba(255, 255, 255, 0.8); /* רקע בהיר */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* צל להבלטה */
+    padding: 2vw;
+    border-radius: 1vw;
+    box-shadow: 0 0.5vw 0.6vw rgba(0, 0, 0, 0.1); /* צל להבלטה */
     z-index: 9999; /* ודא שהרכיב נמצא מעל כל רכיב אחר */
 }
 
 .loading-circle {
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid #3498db;
+    border: 1vw solid #f3f3f3;
+    border-top: 1vw solid #3498db;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 5vw;
+    height: 5vw;
     animation: spin 2s linear infinite;
 }
 

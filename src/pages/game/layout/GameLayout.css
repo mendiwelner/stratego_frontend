@@ -1,18 +1,39 @@
+.board-graveyard-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.game-left-section {
+    width: 30%; /* 20% משמאל */
+    display: flex;
+    justify-content: center; /* ממקם את ה-graveyard במרכז החלק הזה */
+}
+
+.game-center-section {
+    width: 40%; /* 60% באמצע */
+    display: flex;
+    justify-content: center; /* ממקם את הלוח במרכז */
+}
+
+.game-right-section {
+    width: 30%; /* 20% מימין */
+}
 
 .player-names {
     text-align: center;
-    font-size: 1.2rem;
-    margin: 10px 0;
+    font-size: 1.5vw;
+    margin: 0.5vw 0;
 }
 
 .opponent-name {
     font-weight: bold;
     color: rgb(0, 0, 0);
-    margin-top: 20px;
+    margin-top: 2vh;
 }
 
 .your-name {
     font-weight: bold;
     color: rgb(0, 0, 0);
-    margin-bottom: 40px;
+    margin-bottom: 4vh;
 }
