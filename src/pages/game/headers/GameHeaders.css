@@ -20,13 +20,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center; /* תוודא שכל הטקסט במרכז */
+    text-align: center;
 }
 
 .user-info {
     display: flex;
     align-items: center;
-    justify-content: center; /* מרכז את האווטר והפרטים */
+    justify-content: center;
 }
 
 .user-avatar {
@@ -34,7 +34,7 @@
     height: 5vw;
     border-radius: 50%;
     object-fit: cover;
-    margin-right: 0vw;
+    margin-right: 0.5vw;
     margin-top: 1vw;
 }
 
@@ -54,4 +54,70 @@
     margin: 0;
     font-size: 1vw;
     color: gray;
+}
+
+/* עיצוב למובייל - Media Query */
+@media (max-width: 768px) {
+    .game-headers {
+        margin-top: 2vw;
+        flex-direction: row; /* נשארים בשורה */
+        width: 100%;
+    }
+
+    .headers-center-section {
+        flex: 0 0 50%; /* נשארים ב-20% לכל חלק */
+    }
+
+    .headers-left-section,
+    .headers-right-section {
+        flex: 0 0 25%; /* נשארים ב-20% לכל חלק */
+    }
+
+    .headers-center-section {
+        font-size: 3vw; /* משנה את גודל הפונט של המרכז למובייל */
+    }
+
+    .user-avatar {
+        width: 8vw; /* מגדיל את האווטר במובייל */
+        height: 8vw;
+    }
+
+    .user-name {
+        font-size: 3vw; /* מגדיל את שם המשתמש */
+    }
+
+    .user-rating {
+        font-size: 2vw; /* מגדיל את הרייטינג */
+    }
+}
+
+/* עיצוב טאבלט (בין 768px ל-1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .game-headers {
+        flex-direction: row; /* נשארים באופקית */
+        width: 100%;
+    }
+
+    .headers-left-section,
+    .headers-center-section,
+    .headers-right-section {
+        flex: 0 0 33.33%; /* כל חלק יקבל 33.33% רוחב */
+    }
+
+    .headers-center-section {
+        font-size: 2.5vw; /* מתאם את גודל הפונט */
+    }
+
+    .user-avatar {
+        width: 8vw; /* מכוונים את האווטר בגודל בינוני */
+        height: 8vw;
+    }
+
+    .user-name {
+        font-size: 3vw; /* משנה את גודל שם המשתמש */
+    }
+
+    .user-rating {
+        font-size: 2vw; /* משנה את גודל הרייטינג */
+    }
 }

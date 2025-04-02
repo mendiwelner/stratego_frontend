@@ -96,7 +96,8 @@ export function handleConnectToGame(
                 case "endgame":
                     setTimeout(() => {
                         handleGameOver(data.result, data.reason, data.rating_change);
-                    }, 1400);
+                        console.log(data);
+                    }, 0);
                     break
 
                 default:

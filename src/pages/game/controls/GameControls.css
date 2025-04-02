@@ -3,29 +3,26 @@
     width: 100%;
 }
 
-.controls-left-section {
-    flex: 0 0 20%;
+.controls-left-section, .controls-center-section, .controls-right-section {
     display: flex;
-    justify-content: center; /* ממרכז את הכפתור אופקית */
-    align-items: center; /* ממרכז את הכפתור אנכית */
+    justify-content: center;
+    align-items: center;
+}
+
+.controls-left-section {
+    flex: 0 0 20%; /* בחלק גדול יותר של המסך */
 }
 
 .controls-center-section {
-    flex: 0 0 60%; /* חלק אמצעי, 60% */
-    display: flex;
-    justify-content: center; /* למרכז את הכפתורים בתוך החלק */
-    align-items: center; /* למרכז את הכפתורים במאונך */
+    flex: 0 0 60%;
 }
 
 .controls-right-section {
-    flex: 0 0 20%; /* חלק ימני, 20% */
-    display: center;
-    justify-content: center; /* לוודא שהכפתור בצד שמאל */
+    flex: 0 0 20%;
 }
 
-
 button {
-    margin-top: 0vw;
+    margin-top: 0;
     padding: 1vw 2vw;
     font-size: 1vw;
     cursor: pointer;
@@ -33,4 +30,39 @@ button {
 
 button:hover {
     background-color: #f0f0f0;
+}
+
+/* עיצוב מובייל - Media Query */
+@media (max-width: 768px) {
+    .game-controls {
+        flex-direction: row; /* נשארים באופקית */
+    }
+
+    .controls-left-section, .controls-center-section, .controls-right-section {
+        flex: 0 0 33%; /* כל חלק יקבל 33% רוחב */
+        margin-bottom: 10px; /* מוסיף רווח בין החלקים */
+    }
+
+    button {
+        margin-top: 2vh; /* מוסיף רווח בין הכפתורים */
+        padding: 1vw 2vw; /* משנה את הגדלים של הכפתור */
+        font-size: 3vw; /* משנה את גודל הפונט */
+    }
+}
+
+/* עיצוב טאבלט (בין 768px ל-1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .game-controls {
+        flex-direction: row; /* נשארים באופקית, עם התאמת גודל */
+    }
+
+    .controls-left-section, .controls-center-section, .controls-right-section {
+        flex: 0 0 33%; /* כל חלק יקבל 33% רוחב */
+    }
+
+    button {
+        margin-top: 1vh;
+        padding: 1.5vw 3vw;
+        font-size: 2vw;
+    }
 }

@@ -4,7 +4,7 @@
     justify-content: center;
     flex-direction: column;
     position: fixed; /* נוודא שזה מוצג על המסך */
-    top: 50%;
+    top: 38vw;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 1.5vw;
