@@ -37,3 +37,13 @@
     color: rgb(0, 0, 0);
     margin-bottom: 4vh;
 }
+
+
+@media (max-width: 768px) {
+    .board-graveyard-container {
+        display: flex;
+        flex-direction: column-reverse; /* משנה את הסדר כך שהפריטים יהיו מלמטה למעלה */
+        justify-content: space-between;
+        width: 100%;
+    }
+}
