@@ -1,4 +1,4 @@
-<img src="screenshots/demo.gif" width="700">
+<img src="demo/strategoAnimation.gif" width="700">
 
 # Getting Started with Create React App
 
