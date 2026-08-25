@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="screenshots/demo.gif" width="700">
+</p>
 
 # Getting Started with Create React App
 
